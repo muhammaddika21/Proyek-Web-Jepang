@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NihongoBu - UKM Bahasa Jepang</title>
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&family=Inter:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css"
+    />
+
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/cards.css" />
+    <link rel="stylesheet" href="assets/css/carousel.css" />
+    <link rel="stylesheet" href="assets/css/contentbahasa.css" />
+  </head>
+  <body>
+    <header>
+      <nav>
+        <div class="logo-area">
+          <div class="logo-circle">NB</div>
+          <div class="logo-text">Sakura no Kai</div>
+        </div>
+        <ul class="nav-menu" id="navMenu">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="#">Profil</a></li>
+          <li><a href="#">Bahasa</a></li>
+          <li><a href="#">Budaya</a></li>
+        </ul>
+        <div class="hamburger" id="hamburger">
+          <span></span><span></span><span></span>
+        </div>
+      </nav>
+    </header>
+    <link rel="stylesheet" href="assets/css/kontenbahasa.css" />
+
+    <section class="category-nav-section">
+      <div class="category-scroll-wrapper">
+        <div class="category-tabs">
+          <button
+            class="tab-btn active"
+            onclick="openCategory('writing', this)"
+          >
+            <span class="card-icon-small">あ</span> Sistem Penulisan
+          </button>
+
+          <button class="tab-btn" onclick="openCategory('grammar', this)">
+            <span class="card-icon-small">文</span> Tata Bahasa
+          </button>
+
+          <button class="tab-btn" onclick="openCategory('vocab', this)">
+            <span class="card-icon-small">語</span> Kosakata & Kanji
+          </button>
+
+          <button class="tab-btn" onclick="openCategory('culture', this)">
+            <span class="card-icon-small">話</span> Conversation & Budaya
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-area-wrapper">
+      <div id="writing" class="topic-grid active">
+        <a href="#" class="article-card">
+          <span class="article-meta">Basic Kana</span>
+          <h3>Pengenalan Hiragana</h3>
+          <p>
+            Mempelajari 46 huruf dasar Hiragana, cara tulis, dan pelafalan yang
+            benar.
+          </p>
+          <div class="read-btn">Mulai Belajar ➜</div>
+        </a>
+        <a href="#" class="article-card">
+          <span class="article-meta">Basic Kana</span>
+          <h3>Pengenalan Katakana</h3>
+          <p>
+            Huruf untuk kata serapan asing. Penting untuk membaca nama orang
+            non-Jepang.
+          </p>
+          <div class="read-btn">Mulai Belajar ➜</div>
+        </a>
+        <a href="#" class="article-card">
+          <span class="article-meta">Lanjutan</span>
+          <h3>Dakuon & Handakuon</h3>
+          <p>
+            Memahami perubahan bunyi seperti Ka menjadi Ga, Ha menjadi Pa, dsb.
+          </p>
+          <div class="read-btn">Mulai Belajar ➜</div>
+        </a>
+      </div>
+
+      <div id="grammar" class="topic-grid">
+        <a href="#" class="article-card">
+          <span class="article-meta">Partikel</span>
+          <h3>Partikel Dasar (Wa, Wo, Ni)</h3>
+          <p>
+            Fungsi partikel sebagai penanda topik, objek, dan waktu dalam
+            kalimat.
+          </p>
+          <div class="read-btn">Baca Materi ➜</div>
+        </a>
+        <a href="#" class="article-card">
+          <span class="article-meta">Sentence</span>
+          <h3>Pola Kalimat Dasar (Desu/Masu)</h3>
+          <p>
+            Struktur kalimat positif, negatif, dan tanya dalam bentuk sopan.
+          </p>
+          <div class="read-btn">Baca Materi ➜</div>
+        </a>
+      </div>
+
+      <div id="vocab" class="topic-grid">
+        <a href="#" class="article-card">
+          <span class="article-meta">Kosakata N5</span>
+          <h3>Angka & Waktu</h3>
+          <p>Cara menghitung 1-100, menyebutkan jam, hari, dan tanggal.</p>
+          <div class="read-btn">Hafalkan ➜</div>
+        </a>
+        <a href="#" class="article-card">
+          <span class="article-meta">Kanji Dasar</span>
+          <h3>Kanji Angka & Alam</h3>
+          <p>Pengenalan karakter Kanji paling dasar untuk pemula.</p>
+          <div class="read-btn">Hafalkan ➜</div>
+        </a>
+      </div>
+
+      <div id="culture" class="topic-grid">
+        <a href="#" class="article-card">
+          <span class="article-meta">Aisatsu</span>
+          <h3>Salam & Sapaan Sehari-hari</h3>
+          <p>Ohayou, Konnichiwa, dan ungkapan penting lainnya.</p>
+          <div class="read-btn">Dengar Audio ➜</div>
+        </a>
+        <a href="#" class="article-card">
+          <span class="article-meta">Budaya</span>
+          <h3>Etika Ojigi (Membungkuk)</h3>
+          <p>Kapan dan bagaimana cara membungkuk yang benar di Jepang.</p>
+          <div class="read-btn">Baca Artikel ➜</div>
+        </a>
+      </div>
+    </section>
+
+    <script src="assets/js/script.js"></script>
+  </body>
+</html>

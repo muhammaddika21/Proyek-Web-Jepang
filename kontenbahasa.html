@@ -1,0 +1,1180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <section
+      id="learning-topics"
+      class="learning-topics-section"
+      style="background: var(--very-pale-green); padding: 3rem 0 2rem 0"
+    >
+      <div
+        style="
+          max-width: 1100px;
+          margin: 0 auto;
+          display: flex;
+          gap: 2rem;
+          flex-wrap: wrap;
+          justify-content: center;
+        "
+      >
+        <div
+          class="topic-card"
+          data-topic="writing-system"
+          style="background: #ffd6c9"
+        >
+          <div class="topic-card-icon">📝</div>
+          <div class="topic-card-title">
+            Writing System<br /><span class="japanese-text">文字体系</span>
+          </div>
+          <div class="topic-card-desc">
+            Learn Hiragana &amp; Katakana, the fundamental Japanese writing
+            systems that unlock reading and writing abilities.
+          </div>
+          <button
+            class="topic-card-btn"
+            onclick="smoothScrollTo('writing-system')"
+          >
+            Mulai Belajar
+          </button>
+        </div>
+        <div
+          class="topic-card"
+          data-topic="grammar"
+          style="background: #c5e1a5"
+        >
+          <div class="topic-card-icon">📚</div>
+          <div class="topic-card-title">
+            Grammar<br /><span class="japanese-text">文法</span>
+          </div>
+          <div class="topic-card-desc">
+            Understand basic sentence structures, particles, and verb
+            conjugations to form simple sentences.
+          </div>
+          <button class="topic-card-btn" onclick="smoothScrollTo('grammar')">
+            Mulai Belajar
+          </button>
+        </div>
+        <div
+          class="topic-card"
+          data-topic="vocabulary"
+          style="background: #b2dfdb"
+        >
+          <div class="topic-card-icon">🔤</div>
+          <div class="topic-card-title">
+            Vocabulary<br /><span class="japanese-text">語彙</span>
+          </div>
+          <div class="topic-card-desc">
+            Build vocabulary: greetings, numbers, time, family, and everyday
+            activities.
+          </div>
+          <button class="topic-card-btn" onclick="smoothScrollTo('vocabulary')">
+            Mulai Belajar
+          </button>
+        </div>
+        <div
+          class="topic-card"
+          data-topic="conversation"
+          style="background: #ffccbc"
+        >
+          <div class="topic-card-icon">💬</div>
+          <div class="topic-card-title">
+            Conversation &amp; Culture<br /><span class="japanese-text"
+              >会話と文化</span
+            >
+          </div>
+          <div class="topic-card-desc">
+            Master conversations, learn polite expressions, and explore Japanese
+            culture.
+          </div>
+          <button
+            class="topic-card-btn"
+            onclick="smoothScrollTo('conversation')"
+          >
+            Mulai Belajar
+          </button>
+        </div>
+      </div>
+      <div
+        id="progress-section"
+        style="
+          max-width: 500px;
+          margin: 2.5rem auto 0 auto;
+          display: flex;
+          align-items: center;
+          gap: 1.5rem;
+          justify-content: center;
+        "
+      >
+        <div style="flex: 1">
+          <div
+            style="
+              background: var(--white);
+              border-radius: 12px;
+              box-shadow: 0 2px 6px #8fd6b020;
+              padding: 1.5rem;
+            "
+          >
+            <div
+              style="
+                font-weight: 600;
+                font-size: 1.12rem;
+                color: var(--dark-green);
+                margin-bottom: 0.5rem;
+              "
+            >
+              Progress Belajar
+            </div>
+            <div
+              style="
+                font-size: 0.95rem;
+                color: var(--gray-text);
+                margin-bottom: 5px;
+              "
+            >
+              Sudah dipelajari: <span id="progress-kana">0/92 kana</span>,
+              <span id="progress-vocab">0/50 vocab</span>,
+              <span id="progress-grammar">0/5 pola</span>
+            </div>
+            <div
+              style="
+                width: 100%;
+                height: 9px;
+                background: #e8f5e9;
+                border-radius: 8px;
+                overflow: hidden;
+              "
+            >
+              <div
+                id="progress-bar"
+                style="
+                  height: 100%;
+                  background: linear-gradient(
+                    90deg,
+                    var(--dark-green),
+                    var(--primary-green)
+                  );
+                  width: 0%;
+                  transition: width 0.6s;
+                "
+              ></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <main class="learning-content" style="margin: 0 auto; max-width: 1050px">
+      <section id="writing-system" style="padding: 3rem 0">
+        <h2 class="section-title">
+          Writing System <span class="japanese-text">(ひらがな・カタカナ)</span>
+        </h2>
+        <div
+          style="
+            font-size: 1.1rem;
+            color: var(--gray-text);
+            max-width: 670px;
+            margin: 0 auto 2.5rem auto;
+          "
+        >
+          Tulisan Jepang terdiri dari tiga jenis: <b>Hiragana</b>,
+          <b>Katakana</b>, dan <b>Kanji</b>. Pemula wajib menguasai Hiragana
+          &amp; Katakana sebagai fondasi membaca dan menulis.
+        </div>
+        <div class="kana-chart-container">
+          <h3 class="chart-title">Hiragana Chart</h3>
+          <div class="kana-chart" id="hiragana-chart"></div>
+          <div style="margin: 1rem 0 2rem 0; color: var(--gray-text)">
+            Tips belajar: Hafalkan per baris, gunakan lagu/flashcard, dan sering
+            latihan tulis tangan!
+          </div>
+        </div>
+        <div class="kana-chart-container">
+          <h3 class="chart-title">Katakana Chart</h3>
+          <div class="kana-chart" id="katakana-chart"></div>
+          <div style="margin: 1rem 0 2rem 0; color: var(--gray-text)">
+            Katakana dipakai untuk kata serapan dan nama asing. Latihan menulis
+            bentuknya yang "tajam".
+          </div>
+        </div>
+
+        <div class="mini-quiz-container">
+          <h4 class="quiz-title">Mini Quiz 1: Hiragana</h4>
+          <div id="quiz-hiragana"></div>
+        </div>
+      </section>
+
+      <section id="grammar" style="padding: 3rem 0">
+        <h2 class="section-title">
+          Grammar <span class="japanese-text">(文法)</span>
+        </h2>
+        <div style="margin: 0 0 1.5rem 0; color: var(--gray-text)">
+          Basic sentence patterns for beginners. Mulailah dengan pola sederhana,
+          lalu coba variasikan sendiri.
+        </div>
+        <div class="grammar-list">
+          <div class="grammar-item">
+            <h4>
+              です <span class="japanese-text">(desu)</span>: "Ini adalah..."
+            </h4>
+            <div>
+              Contoh: <b class="japanese-text">私は田中です。</b> (Watashi wa
+              Tanaka desu.) <br /><span style="color: var(--gray-text)"
+                >Saya Tanaka.</span
+              >
+            </div>
+          </div>
+          <div class="grammar-item">
+            <h4>Partikel: <span class="japanese-text">は・を・に</span></h4>
+            <div class="particle-table-wrapper">
+              <table class="particle-table">
+                <tr>
+                  <th>Partikel</th>
+                  <th>Fungsi</th>
+                  <th>Contoh</th>
+                </tr>
+                <tr>
+                  <td class="japanese-text">は</td>
+                  <td>Penanda topik</td>
+                  <td>
+                    <span class="japanese-text">私は学生です。</span> (Saya
+                    adalah mahasiswa.)
+                  </td>
+                </tr>
+                <tr>
+                  <td class="japanese-text">を</td>
+                  <td>Penanda objek</td>
+                  <td>
+                    <span class="japanese-text">パンを食べます。</span> (Makan
+                    roti.)
+                  </td>
+                </tr>
+                <tr>
+                  <td class="japanese-text">に</td>
+                  <td>Penanda waktu/lokasi/tujuan</td>
+                  <td>
+                    <span class="japanese-text">学校に行きます。</span> (Pergi
+                    ke sekolah.)
+                  </td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <div class="grammar-item">
+            <h4><span class="japanese-text">ます</span> Form (Bentuk Sopan)</h4>
+            <div>
+              Kata kerja dasar + <span class="japanese-text">ます</span> (biasa
+              diucapkan)
+              <ul style="margin-left: 1.5rem">
+                <li class="japanese-text">
+                  たべます
+                  <span style="color: var(--gray-text)">[tabemasu] makan</span>
+                </li>
+                <li class="japanese-text">
+                  みます
+                  <span style="color: var(--gray-text)">[mimasu] melihat</span>
+                </li>
+              </ul>
+              Negatif: +<span class="japanese-text">ません</span> (tidak ...)
+            </div>
+          </div>
+          <div class="grammar-item">
+            <h4>Pola Pertanyaan: <span class="japanese-text">ですか?</span></h4>
+            <div>
+              Gunakan <span class="japanese-text">か</span> di akhir kalimat.
+              <ul style="margin-left: 1.5rem">
+                <li class="japanese-text">
+                  これは何ですか? [kore wa nan desu ka?]
+                  <span style="color: var(--gray-text)">Apa ini?</span>
+                </li>
+                <li class="japanese-text">
+                  だれですか? [dare desu ka?]
+                  <span style="color: var(--gray-text)">Siapa?</span>
+                </li>
+              </ul>
+              Kata tanya: <span class="japanese-text">何</span> (apa),
+              <span class="japanese-text">どこ</span> (di mana),
+              <span class="japanese-text">誰</span> (siapa)
+            </div>
+          </div>
+        </div>
+        <div class="mini-quiz-container">
+          <h4 class="quiz-title">Mini Quiz 2: Grammar</h4>
+          <div id="quiz-grammar"></div>
+        </div>
+      </section>
+
+      <section id="vocabulary" style="padding: 3rem 0">
+        <h2 class="section-title">
+          Vocabulary <span class="japanese-text">(語彙)</span>
+        </h2>
+        <div style="margin: 0 0 1.5rem 0; color: var(--gray-text)">
+          Perbanyak kosakata harianmu! Pilih kategori di bawah ini.
+        </div>
+        <div class="vocab-tabs" id="vocabTabs"></div>
+        <div id="vocab-content"></div>
+        <div class="mini-quiz-container">
+          <h4 class="quiz-title">Mini Quiz 3: Vocabulary</h4>
+          <div id="quiz-vocab"></div>
+        </div>
+      </section>
+
+      <section id="conversation" style="padding: 3rem 0">
+        <h2 class="section-title">
+          Conversation &amp; Culture
+          <span class="japanese-text">(会話と文化)</span>
+        </h2>
+        <div
+          style="
+            color: var(--gray-text);
+            margin-bottom: 1.2rem;
+            font-size: 1.08rem;
+          "
+        >
+          Pelajari dialog praktis, ekspresi sopan, serta kebiasaan budaya
+          Jepang.
+        </div>
+
+        <div class="conversation-cards" id="conversationCards"></div>
+        <aside
+          class="cultural-sidebar"
+          style="
+            background: var(--very-pale-green);
+            margin: 2.2rem auto 0 0;
+            padding: 1.4rem;
+            max-width: 550px;
+            border-radius: 12px;
+            border: 2px dashed #c5e1a5;
+          "
+        >
+          <div
+            style="
+              font-weight: 600;
+              margin-bottom: 0.5rem;
+              color: var(--dark-green);
+              font-size: 1.05rem;
+            "
+          >
+            Catatan Budaya Jepang
+          </div>
+          <ul style="padding-left: 1.4rem">
+            <li>
+              <b>Ojigi:</b> Membungkuk dengan sudut bervariasi (15° untuk
+              santai, 30° sopan, 45° permintaan maaf).
+            </li>
+            <li>
+              <b>Omiyage:</b> Budaya memberi oleh-oleh sepulang bepergian.
+            </li>
+            <li>
+              <b>Keigo:</b> Tingkat kesopanan dalam bertutur sesuai lawan
+              bicara.
+            </li>
+            <li>
+              <b>Makan &amp; Salam:</b> Biasakan mengucapkan
+              <span class="japanese-text">いただきます</span> sebelum makan,
+              <span class="japanese-text">ごちそうさまでした</span> setelahnya.
+            </li>
+          </ul>
+        </aside>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-content">
+        <div class="footer-column">
+          <h3>NihongoBu STIS</h3>
+          <p>Unit Kegiatan Mahasiswa Bahasa dan Budaya Jepang</p>
+          <div class="social-icons">
+            <a href="#" class="social-icon" aria-label="Instagram">📷</a>
+            <a href="#" class="social-icon" aria-label="LINE">💬</a>
+            <a href="#" class="social-icon" aria-label="Facebook">📘</a>
+          </div>
+        </div>
+        <div class="footer-column">
+          <h3>Quick Links</h3>
+          <ul class="footer-links">
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Profil</a></li>
+            <li><a href="#">Berita</a></li>
+            <li><a href="#">Budaya</a></li>
+            <li><a href="#">Belajar</a></li>
+            <li><a href="#">Kontak</a></li>
+          </ul>
+        </div>
+        <div class="footer-column">
+          <h3>Hubungi Kami</h3>
+          <div class="contact-info">
+            <p>✉️ nihongobu@stis.ac.id</p>
+            <p>📷 @nihongobu_stis</p>
+            <p>💬 @nihongobu_stis</p>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 NihongoBu STIS. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script>
+      const hiraganaRows = [
+        ["あ", "い", "う", "え", "お"],
+        ["か", "き", "く", "け", "こ"],
+        ["さ", "し", "す", "せ", "そ"],
+        ["た", "ち", "つ", "て", "と"],
+        ["な", "に", "ぬ", "ね", "の"],
+        ["は", "ひ", "ふ", "へ", "ほ"],
+        ["ま", "み", "む", "め", "も"],
+        ["や", "", "ゆ", "", "よ"],
+        ["ら", "り", "る", "れ", "ろ"],
+        ["わ", "", "", "", "を"],
+        ["ん", "", "", "", ""],
+      ];
+      const hiraganaRomaji = [
+        ["a", "i", "u", "e", "o"],
+        ["ka", "ki", "ku", "ke", "ko"],
+        ["sa", "shi", "su", "se", "so"],
+        ["ta", "chi", "tsu", "te", "to"],
+        ["na", "ni", "nu", "ne", "no"],
+        ["ha", "hi", "fu", "he", "ho"],
+        ["ma", "mi", "mu", "me", "mo"],
+        ["ya", "", "yu", "", "yo"],
+        ["ra", "ri", "ru", "re", "ro"],
+        ["wa", "", "", "", "wo"],
+        ["n", "", "", "", ""],
+      ];
+      const katakanaRows = [
+        ["ア", "イ", "ウ", "エ", "オ"],
+        ["カ", "キ", "ク", "ケ", "コ"],
+        ["サ", "シ", "ス", "セ", "ソ"],
+        ["タ", "チ", "ツ", "テ", "ト"],
+        ["ナ", "ニ", "ヌ", "ネ", "ノ"],
+        ["ハ", "ヒ", "フ", "ヘ", "ホ"],
+        ["マ", "ミ", "ム", "メ", "モ"],
+        ["ヤ", "", "ユ", "", "ヨ"],
+        ["ラ", "リ", "ル", "レ", "ロ"],
+        ["ワ", "", "", "", "ヲ"],
+        ["ン", "", "", "", ""],
+      ];
+      const katakanaRomaji = [
+        ["a", "i", "u", "e", "o"],
+        ["ka", "ki", "ku", "ke", "ko"],
+        ["sa", "shi", "su", "se", "so"],
+        ["ta", "chi", "tsu", "te", "to"],
+        ["na", "ni", "nu", "ne", "no"],
+        ["ha", "hi", "fu", "he", "ho"],
+        ["ma", "mi", "mu", "me", "mo"],
+        ["ya", "", "yu", "", "yo"],
+        ["ra", "ri", "ru", "re", "ro"],
+        ["wa", "", "", "", "wo"],
+        ["n", "", "", "", ""],
+      ];
+
+      const vocabCategories = [
+        {
+          name: "Greetings",
+          icon: "👋",
+          words: [
+            {
+              jp: "おはよう",
+              romaji: "ohayou",
+              en: "Good morning",
+              example: "おはよう!",
+              exen: "Good morning!",
+            },
+            {
+              jp: "こんにちは",
+              romaji: "konnichiwa",
+              en: "Hello / Good afternoon",
+              example: "こんにちは、元気ですか。",
+              exen: "Hello, how are you?",
+            },
+            {
+              jp: "こんばんは",
+              romaji: "konbanwa",
+              en: "Good evening",
+              example: "こんばんは!",
+              exen: "Good evening!",
+            },
+            {
+              jp: "おやすみなさい",
+              romaji: "oyasuminasai",
+              en: "Good night",
+              example: "おやすみなさい。",
+              exen: "Good night.",
+            },
+            {
+              jp: "ありがとう",
+              romaji: "arigatou",
+              en: "Thank you",
+              example: "ありがとう!",
+              exen: "Thank you!",
+            },
+            {
+              jp: "すみません",
+              romaji: "sumimasen",
+              en: "Excuse me / Sorry",
+              example: "すみません、道を教えてください。",
+              exen: "Excuse me, please tell me the way.",
+            },
+          ],
+        },
+        {
+          name: "Numbers",
+          icon: "🔢",
+          words: [
+            {
+              jp: "一",
+              romaji: "ichi",
+              en: "one",
+              example: "りんごが一つあります。",
+              exen: "There is one apple.",
+            },
+            {
+              jp: "二",
+              romaji: "ni",
+              en: "two",
+              example: "猫が二匹います。",
+              exen: "There are two cats.",
+            },
+            {
+              jp: "三",
+              romaji: "san",
+              en: "three",
+              example: "みかんを三つ買いました。",
+              exen: "I bought three oranges.",
+            },
+            {
+              jp: "四",
+              romaji: "yon/shi",
+              en: "four",
+              example: "本が四冊あります。",
+              exen: "There are four books.",
+            },
+            {
+              jp: "五",
+              romaji: "go",
+              en: "five",
+              example: "友達が五人います。",
+              exen: "I have five friends.",
+            },
+            {
+              jp: "六",
+              romaji: "roku",
+              en: "six",
+              example: "六時に起きます。",
+              exen: "I wake up at six.",
+            },
+            {
+              jp: "七",
+              romaji: "nana/shichi",
+              en: "seven",
+              example: "七月です。",
+              exen: "It is July.",
+            },
+            {
+              jp: "八",
+              romaji: "hachi",
+              en: "eight",
+              example: "パンが八個あります。",
+              exen: "There are eight breads.",
+            },
+            {
+              jp: "九",
+              romaji: "kyuu/ku",
+              en: "nine",
+              example: "九人来ました。",
+              exen: "Nine people came.",
+            },
+            {
+              jp: "十",
+              romaji: "juu",
+              en: "ten",
+              example: "十歳です。",
+              exen: "I am ten years old.",
+            },
+            {
+              jp: "二十",
+              romaji: "nijuu",
+              en: "twenty",
+              example: "クラスは二十人です。",
+              exen: "The class has twenty people.",
+            },
+            {
+              jp: "百",
+              romaji: "hyaku",
+              en: "hundred",
+              example: "百円です。",
+              exen: "It's 100 yen.",
+            },
+            {
+              jp: "千",
+              romaji: "sen",
+              en: "thousand",
+              example: "千人います。",
+              exen: "There are 1,000 people.",
+            },
+          ],
+        },
+        {
+          name: "Days & Months",
+          icon: "📅",
+          words: [
+            {
+              jp: "月曜日",
+              romaji: "getsuyoubi",
+              en: "Monday",
+              example: "月曜日に学校へ行きます。",
+              exen: "I go to school on Monday.",
+            },
+            {
+              jp: "火曜日",
+              romaji: "kayoubi",
+              en: "Tuesday",
+              example: "火曜日は休みです。",
+              exen: "Tuesday is a holiday.",
+            },
+            {
+              jp: "水曜日",
+              romaji: "suiyoubi",
+              en: "Wednesday",
+              example: "水曜日も勉強します。",
+              exen: "I study also on Wednesday.",
+            },
+            {
+              jp: "木曜日",
+              romaji: "mokuyoubi",
+              en: "Thursday",
+              example: "木曜日にテストがあります。",
+              exen: "There is a test on Thursday.",
+            },
+            {
+              jp: "金曜日",
+              romaji: "kinyoubi",
+              en: "Friday",
+              example: "金曜日が好きです。",
+              exen: "I like Friday.",
+            },
+            {
+              jp: "土曜日",
+              romaji: "doyoubi",
+              en: "Saturday",
+              example: "土曜日はパーティーです。",
+              exen: "Saturday is a party.",
+            },
+            {
+              jp: "日曜日",
+              romaji: "nichiyoubi",
+              en: "Sunday",
+              example: "日曜日は休みます。",
+              exen: "I rest on Sunday.",
+            },
+            {
+              jp: "1月",
+              romaji: "ichigatsu",
+              en: "January",
+              example: "1月は寒いです。",
+              exen: "January is cold.",
+            },
+            {
+              jp: "2月",
+              romaji: "nigatsu",
+              en: "February",
+              example: "2月は短いです。",
+              exen: "February is short.",
+            },
+            {
+              jp: "3月",
+              romaji: "sangatsu",
+              en: "March",
+              example: "3月に桜が咲きます。",
+              exen: "Cherry blossoms bloom in March.",
+            },
+          ],
+        },
+        {
+          name: "Family",
+          icon: "👨‍👩‍👧‍👦",
+          words: [
+            {
+              jp: "お父さん",
+              romaji: "otousan",
+              en: "father",
+              example: "お父さんは先生です。",
+              exen: "My father is a teacher.",
+            },
+            {
+              jp: "お母さん",
+              romaji: "okaasan",
+              en: "mother",
+              example: "お母さんは優しいです。",
+              exen: "Mother is kind.",
+            },
+            {
+              jp: "兄",
+              romaji: "ani",
+              en: "older brother",
+              example: "兄は大学生です。",
+              exen: "My older brother is a university student.",
+            },
+            {
+              jp: "姉",
+              romaji: "ane",
+              en: "older sister",
+              example: "姉は会社員です。",
+              exen: "My older sister is an office worker.",
+            },
+            {
+              jp: "弟",
+              romaji: "otouto",
+              en: "younger brother",
+              example: "弟は小学生です。",
+              exen: "My younger brother is an elementary student.",
+            },
+            {
+              jp: "妹",
+              romaji: "imouto",
+              en: "younger sister",
+              example: "妹はかわいいです。",
+              exen: "My little sister is cute.",
+            },
+            {
+              jp: "おじいさん",
+              romaji: "ojiisan",
+              en: "grandfather",
+              example: "おじいさんは元気です。",
+              exen: "Grandfather is healthy.",
+            },
+            {
+              jp: "おばあさん",
+              romaji: "obaasan",
+              en: "grandmother",
+              example: "おばあさんは料理が上手です。",
+              exen: "Grandmother is good at cooking.",
+            },
+          ],
+        },
+        {
+          name: "UKM Activities",
+          icon: "📖",
+          words: [
+            {
+              jp: "勉強",
+              romaji: "benkyou",
+              en: "study",
+              example: "日本語を勉強します。",
+              exen: "I study Japanese.",
+            },
+            {
+              jp: "会議",
+              romaji: "kaigi",
+              en: "meeting",
+              example: "会議は明日です。",
+              exen: "Meeting is tomorrow.",
+            },
+            {
+              jp: "イベント",
+              romaji: "ibento",
+              en: "event",
+              example: "イベントがあります。",
+              exen: "There is an event.",
+            },
+            {
+              jp: "クラス",
+              romaji: "kurasu",
+              en: "class",
+              example: "クラスは午後三時です。",
+              exen: "Class is at 3 PM.",
+            },
+            {
+              jp: "日本語",
+              romaji: "nihongo",
+              en: "Japanese language",
+              example: "日本語が好きです。",
+              exen: "I like Japanese.",
+            },
+            {
+              jp: "文化",
+              romaji: "bunka",
+              en: "culture",
+              example: "日本文化は面白いです。",
+              exen: "Japanese culture is interesting.",
+            },
+            {
+              jp: "討論",
+              romaji: "touron",
+              en: "discussion",
+              example: "討論をします。",
+              exen: "We have a discussion.",
+            },
+          ],
+        },
+      ];
+
+      const conversationData = [
+        {
+          title: "Self Introduction",
+          jp_title: "自己紹介",
+          dialogues: [
+            {
+              jp: "私はアリです。",
+              romaji: "Watashi wa Ari desu.",
+              en: "I am Ari.",
+            },
+            {
+              jp: "日本語を勉強しています。",
+              romaji: "Nihongo o benkyou shiteimasu.",
+              en: "I am studying Japanese.",
+            },
+          ],
+          cultural_note:
+            "Japanese culture emphasizes humility and politeness. Always use honorifics (keigo) with strangers.",
+        },
+        {
+          title: "Greetings & Bowing",
+          jp_title: "挨拶とお辞儀",
+          dialogues: [
+            {
+              jp: "おはようございます。",
+              romaji: "Ohayou gozaimasu.",
+              en: "Good morning.",
+            },
+            {
+              jp: "どうぞよろしくお願いします。",
+              romaji: "Douzo yoroshiku onegaishimasu.",
+              en: "Nice to meet you.",
+            },
+          ],
+          cultural_note:
+            "Ojigi (bowing) angles vary: 15° for casual, 30° for respect, 45° for apology/deep respect.",
+        },
+        {
+          title: "Expressing Gratitude",
+          jp_title: "感謝の表現",
+          dialogues: [
+            {
+              jp: "ありがとうございます。",
+              romaji: "Arigatou gozaimasu.",
+              en: "Thank you very much.",
+            },
+            {
+              jp: "どういたしまして。",
+              romaji: "Dou itashimashite.",
+              en: "You're welcome.",
+            },
+          ],
+          cultural_note:
+            "Omiyage (souvenirs) are important in Japanese gift-giving culture to show appreciation.",
+        },
+        {
+          title: "Polite Requests",
+          jp_title: "丁寧な依頼",
+          dialogues: [
+            {
+              jp: "すみません、水をください。",
+              romaji: "Sumimasen, mizu o kudasai.",
+              en: "Excuse me, please give me water.",
+            },
+            {
+              jp: "お願いします。",
+              romaji: "Onegaishimasu.",
+              en: "Please.",
+            },
+          ],
+          cultural_note:
+            "Using ください (please) shows respect. Adding すみません (sumimasen) softens requests.",
+        },
+      ];
+
+      const kanaQuizQuestions = [
+        { q: "Which hiragana is 'a'?", a: 0, opts: ["あ", "か", "さ", "た"] },
+        {
+          q: "Which katakana is 'su'?",
+          a: 2,
+          opts: ["シ", "セ", "ス", "スィ"],
+        },
+        {
+          q: "Which is the hiragana for 'ke'?",
+          a: 0,
+          opts: ["け", "く", "た", "も"],
+        },
+        { q: "Which katakana is 'ko'?", a: 3, opts: ["カ", "ユ", "マ", "コ"] },
+        { q: "Which is hiragana 'ra'?", a: 0, opts: ["ら", "み", "な", "は"] },
+        { q: "Pick hiragana for 'shi'", a: 0, opts: ["し", "す", "せ", "そ"] },
+        { q: "Pick katakana for 'no'", a: 1, opts: ["モ", "ノ", "ナ", "ヤ"] },
+        { q: "Pick hiragana for 'yu'", a: 2, opts: ["み", "き", "ゆ", "む"] },
+        { q: "Pick katakana 'e'", a: 1, opts: ["オ", "エ", "ア", "イ"] },
+        {
+          q: "Which is the hiragana for 'to'?",
+          a: 2,
+          opts: ["い", "ひ", "と", "ち"],
+        },
+      ];
+      const grammarQuizQuestions = [
+        {
+          q: "_____は学生です。 (Saya adalah mahasiswa)",
+          opts: ["私は", "あたしは", "ですは", "わたしが"],
+          a: 0,
+        },
+        {
+          q: 'Kata tanya "where" dalam bahasa Jepang?',
+          opts: ["どこ", "いつ", "なに", "だれ"],
+          a: 0,
+        },
+        {
+          q: "Kalimat tanya yang benar:",
+          opts: [
+            "これは何ですか?",
+            "これは何です。",
+            "何ですかこれは。",
+            "これは何どすか?",
+          ],
+          a: 0,
+        },
+        { q: "Partikel penanda objek?", opts: ["を", "に", "は", "が"], a: 0 },
+        {
+          q: "Bentuk negatif dari ます?",
+          opts: ["ません", "ませんか", "ますない", "ましん"],
+          a: 0,
+        },
+      ];
+      const vocabQuizQuestions = [
+        {
+          q: 'Apa arti "おはよう"?',
+          opts: ["Good morning", "Good night", "Thank you", "Sorry"],
+          a: 0,
+        },
+        {
+          q: 'Romaji "arigatou" adalah...?',
+          opts: ["ありがとう", "おはよう", "ありがとうござい", "こんばんは"],
+          a: 0,
+        },
+        {
+          q: "Apa bahasa Jepang untuk 'family' di bawah ini?",
+          opts: ["家族", "お父さん", "友達", "兄弟"],
+          a: 0,
+        },
+        {
+          q: 'Kata "すみません" artinya?',
+          opts: ["Sorry/Excuse me", "Hello", "Goodbye", "See you"],
+          a: 0,
+        },
+        {
+          q: "Bagaimana menulis 'ten' dalam kanji?",
+          opts: ["十", "三", "百", "千"],
+          a: 0,
+        },
+      ];
+
+      const quizState = {
+        kana: { correct: 0, total: kanaQuizQuestions.length, done: false },
+        grammar: {
+          correct: 0,
+          total: grammarQuizQuestions.length,
+          done: false,
+        },
+        vocab: { correct: 0, total: vocabQuizQuestions.length, done: false },
+      };
+      let learnedKana = 0,
+        learnedVocab = 0,
+        learnedGrammar = 0;
+
+      function smoothScrollTo(sectionId) {
+        const elem = document.getElementById(sectionId);
+        if (elem) {
+          elem.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+        document.getElementById("navMenu").classList.remove("active");
+      }
+
+      function renderKanaChart(chartElemId, rows, romajiRows) {
+        const chart = document.getElementById(chartElemId);
+        let html = '<table class="kana-table"><tbody>';
+        for (let i = 0; i < rows.length; i++) {
+          html += "<tr>";
+          for (let j = 0; j < rows[i].length; j++) {
+            if (rows[i][j]) {
+              html += `<td class="kana-char-cell" tabindex="0" title="${romajiRows[i][j]}" onclick="playAudioPlaceholder('${rows[i][j]}')">
+                    <span class="kana-char japanese-text">${rows[i][j]}</span><br>
+                    <span class="kana-romaji">${romajiRows[i][j]}</span>
+                    <button class="kana-audio-btn" tabindex="-1" aria-label="Listen to pronunciation" onclick="event.stopPropagation();playAudioPlaceholder('${rows[i][j]}')">🔊</button>
+                </td>`;
+            } else {
+              html += "<td></td>";
+            }
+          }
+          html += "</tr>";
+        }
+        html += "</tbody></table>";
+        chart.innerHTML = html;
+        chart.querySelectorAll(".kana-char-cell").forEach((cell) => {
+          cell.addEventListener("mouseenter", function () {
+            this.querySelector(".kana-romaji").style.fontWeight = "600";
+          });
+          cell.addEventListener("mouseleave", function () {
+            this.querySelector(".kana-romaji").style.fontWeight = "400";
+          });
+        });
+      }
+
+      function playAudioPlaceholder(char) {
+        alert('Audio untuk "' + char + '" belum tersedia.');
+      }
+
+      function renderQuiz(containerId, questions, key) {
+        const el = document.getElementById(containerId);
+        let html = "";
+        if (quizState[key].done) {
+          html = `<div class="quiz-result">Skor Anda: <b>${quizState[key].correct}</b> / ${questions.length}<br>Sudah selesai!</div>`;
+          el.innerHTML = html;
+          return;
+        }
+        html += '<form onsubmit="return false">';
+        questions.forEach((q, idx) => {
+          html += `<div class="quiz-q"><div class="quiz-q-text">${idx + 1}. ${
+            q.q
+          }</div>`;
+          q.opts.forEach((opt, optIdx) => {
+            html += `<label class="quiz-opt"><input type="radio" name="quiz-${key}-${idx}" value="${optIdx}"> ${opt}</label>`;
+          });
+          html += "</div>";
+        });
+        html += `<button class="quiz-submit-btn" onclick="submitQuiz('${containerId}','${key}')">Submit</button>`;
+        html += "</form>";
+        el.innerHTML = html;
+      }
+
+      function submitQuiz(containerId, key) {
+        const qData =
+          key === "kana"
+            ? kanaQuizQuestions
+            : key === "grammar"
+            ? grammarQuizQuestions
+            : vocabQuizQuestions;
+        const el = document.getElementById(containerId);
+        let correct = 0;
+        qData.forEach((q, idx) => {
+          const radios = document.getElementsByName(`quiz-${key}-${idx}`);
+          let checked = -1;
+          for (let i = 0; i < radios.length; i++)
+            if (radios[i].checked) checked = i;
+          const qDiv = el.querySelectorAll(".quiz-q")[idx];
+          if (checked == q.a) {
+            correct++;
+            qDiv.classList.add("quiz-correct");
+            qDiv.classList.remove("quiz-wrong");
+          } else {
+            qDiv.classList.remove("quiz-correct");
+            qDiv.classList.add("quiz-wrong");
+          }
+        });
+        quizState[key].correct = correct;
+        quizState[key].done = true;
+        setTimeout(() => renderQuiz(containerId, qData, key), 1200);
+        updateProgress();
+      }
+
+      function updateProgress() {
+        learnedKana = quizState.kana.done ? kanaQuizQuestions.length : 0;
+        learnedVocab = quizState.vocab.done ? vocabQuizQuestions.length : 0;
+        learnedGrammar = quizState.grammar.done
+          ? grammarQuizQuestions.length
+          : 0;
+        document.getElementById(
+          "progress-kana"
+        ).textContent = `${learnedKana}/92 kana`;
+        document.getElementById(
+          "progress-vocab"
+        ).textContent = `${learnedVocab}/50 vocab`;
+        document.getElementById(
+          "progress-grammar"
+        ).textContent = `${learnedGrammar}/5 pola`;
+        let percent =
+          (learnedKana / 92) * 40 +
+          (learnedVocab / 50) * 30 +
+          (learnedGrammar / 5) * 30;
+        if (percent > 100) percent = 100;
+        document.getElementById("progress-bar").style.width = percent + "%";
+      }
+
+      function renderVocabTabs() {
+        const tabs = document.getElementById("vocabTabs");
+        tabs.innerHTML = vocabCategories
+          .map(
+            (cat, i) =>
+              `<button class="vocab-tab-btn" onclick="showVocabCategory(${i})" id="vocab-tab-${i}">${cat.icon} ${cat.name}</button>`
+          )
+          .join("");
+        showVocabCategory(0);
+      }
+
+      function showVocabCategory(idx) {
+        for (let i = 0; i < vocabCategories.length; i++)
+          document
+            .getElementById("vocab-tab-" + i)
+            .classList.toggle("active", i == idx);
+        const cat = vocabCategories[idx];
+        let html = `<div class="vocab-grid">`;
+        cat.words.forEach((w) => {
+          html += `<div class="vocab-card">
+            <div class="vocab-jp japanese-text">${w.jp}</div>
+            <div class="vocab-romaji">${w.romaji}</div>
+            <div class="vocab-en">${w.en}</div>
+            <div class="vocab-example"><span class="japanese-text">${w.example}</span><br><span class="vocab-exen">${w.exen}</span></div>
+            <button class="vocab-audio-btn" tabindex="-1" onclick="playAudioPlaceholder('${w.jp}')">🔊</button>
+        </div>`;
+        });
+        html += "</div>";
+        document.getElementById("vocab-content").innerHTML = html;
+      }
+
+      function renderConversationCards() {
+        const cont = document.getElementById("conversationCards");
+        let html = "";
+        conversationData.forEach((conv) => {
+          html += `<div class="conversation-card">
+            <div class="conversation-title"><span class="japanese-text">${conv.jp_title}</span> <span>– ${conv.title}</span></div>
+            <div class="conversation-dialogues">`;
+          conv.dialogues.forEach((line) => {
+            html += `<div class="conversation-line">
+                <span class="japanese-text">${line.jp}</span><br>
+                <span class="romaji">${line.romaji}</span><br>
+                <span class="en">${line.en}</span>
+                <button class="conversation-audio-btn" onclick="playAudioPlaceholder('${line.jp}')">🔊</button>
+            </div>`;
+          });
+          html += `</div>
+            <div class="conversation-cultural-note"><b>Catatan:</b> ${conv.cultural_note}</div>
+        </div>`;
+        });
+        cont.innerHTML = html;
+      }
+
+      window.addEventListener("DOMContentLoaded", function () {
+        renderKanaChart("hiragana-chart", hiraganaRows, hiraganaRomaji);
+        renderKanaChart("katakana-chart", katakanaRows, katakanaRomaji);
+        renderQuiz("quiz-hiragana", kanaQuizQuestions, "kana");
+        renderQuiz("quiz-grammar", grammarQuizQuestions, "grammar");
+        renderQuiz("quiz-vocab", vocabQuizQuestions, "vocab");
+        renderVocabTabs();
+        renderConversationCards();
+        updateProgress();
+      });
+
+      const hamburger = document.getElementById("hamburger");
+      const navMenu = document.getElementById("navMenu");
+
+      hamburger.addEventListener("click", () => {
+        navMenu.classList.toggle("active");
+      });
+
+      document.addEventListener("click", (e) => {
+        if (!navMenu.contains(e.target) && !hamburger.contains(e.target)) {
+          navMenu.classList.remove("active");
+        }
+      });
+    </script>
+  </body>
+</html>
