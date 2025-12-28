@@ -1,44 +1,61 @@
-// assets/js/script.js
+
 
 document.addEventListener('DOMContentLoaded', () => {
     // Logic Hamburger Menu
-    const hamburger = document.getElementById("hamburger");
-    const navMenu = document.getElementById("navMenu");
+    const hamburger = document.querySelector(".hamburger");
+const navMenu = document.querySelector(".nav-menu");
 
-    if (hamburger && navMenu) {
-        hamburger.addEventListener("click", () => {
-            navMenu.classList.toggle("active");
-            
-            // Animasi sederhana untuk hamburger lines (opsional)
-            const spans = hamburger.querySelectorAll('span');
-            spans.forEach(span => span.classList.toggle('active-anim'));
-        });
+hamburger.addEventListener("click", mobileMenu);
 
-        // Tutup menu saat klik di luar
-        document.addEventListener("click", (e) => {
-            if (!navMenu.contains(e.target) && !hamburger.contains(e.target)) {
-                navMenu.classList.remove("active");
-            }
-        });
-    }
+function mobileMenu() {
+    hamburger.classList.toggle("active");
+    navMenu.classList.toggle("active");
+}
+
+
+// when we click on hamburger icon its close 
+
+const navLink = document.querySelectorAll(".nav-link");
+
+navLink.forEach(n => n.addEventListener("click", closeMenu));
+
+function closeMenu() {
+    hamburger.classList.remove("active");
+    navMenu.classList.remove("active");
+}
+
+ // ========================================
+    // 2. HIDE HEADER ON SCROLL (Fitur Tambahan)
+    // ========================================
+    const header = document.getElementById('mainHeader');
+    let lastScrollY = window.scrollY;
+    let ticking = false;
+
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            window.requestAnimationFrame(() => {
+                const currentScrollY = window.scrollY;
+                
+                // Pastikan header ada dan scroll sudah lebih dari 100px
+                if (header) {
+                    if (currentScrollY > lastScrollY && currentScrollY > 100) {
+                        // Scroll Ke Bawah -> Sembunyikan Header
+                        header.classList.add('hidden');
+                        header.classList.remove('visible');
+                    } else {
+                        // Scroll Ke Atas -> Tampilkan Header
+                        header.classList.remove('hidden');
+                        header.classList.add('visible');
+                    }
+                }
+                
+                lastScrollY = currentScrollY;
+                ticking = false;
+            });
+            ticking = true;
+        }
+    });
 });
 
-    function openCategory(categoryName, btnElement) {
-        // 1. Sembunyikan semua konten tab
-        const grids = document.getElementsByClassName("topic-grid");
-        for (let i = 0; i < grids.length; i++) {
-            grids[i].classList.remove("active");
-        }
-
-        // 2. Hilangkan status 'active' dari semua tombol
-        const tabs = document.getElementsByClassName("tab-btn");
-        for (let i = 0; i < tabs.length; i++) {
-            tabs[i].classList.remove("active");
-        }
-
-        // 3. Tampilkan konten yang dipilih
-        document.getElementById(categoryName).classList.add("active");
-
-        // 4. Tambahkan status 'active' ke tombol yang diklik
-        btnElement.classList.add("active");
-    }
+    
+    

@@ -1,69 +1,357 @@
 /* assets/css/style.css */
+/* ========================================
+   CSS VARIABLES (Color Palette)
+======================================== */
 :root {
-  --primary-green: #8fd6b0;
-  --light-green: #a8e6cf;
-  --dark-green: #66bb6a;
-  --pale-green: #e8f5e9;
-  --very-pale-green: #f1f8e9;
-  --soft-red: #ff6b6b;
-  --sakura-pink: #ffb3ba;
-  --white: #ffffff;
-  --dark-text: #333333;
-  --gray-text: #666666;
-  --bg-cards: #ffffff;
+    --primary-green: #8fd6b0;
+    --light-green: #a8e6cf;
+    --dark-green: #66bb6a;
+    --pale-green: #e8f5e9;
+    --very-pale-green: #f1f8e9;
+    --soft-red: #ff6b6b;
+    --sakura-pink: #ffb3ba;
+    --white: #ffffff;
+    --dark-text: #333333;
+    --gray-text: #666666;
 }
+
+/* ========================================
+   RESET & BASE STYLES
+======================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Inter", "Noto Sans JP", sans-serif;
+    color: var(--dark-text);
+    line-height: 1.6;
+    background-color: #f9fdfa;
+    padding-top: 80px; /* Offset untuk fixed header */
+}
+
+.japanese-text {
+    font-family: "Noto Sans JP", sans-serif;
+}
+
+/* ========================================
+   HEADER & NAVIGATION STYLES
+======================================== */
+.header {
+    background: linear-gradient(135deg, #e8f5e9 0%, #ffffff 100%);
+    padding: 0.75rem 2rem;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    transition: transform 0.4s ease, box-shadow 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+/* Header Hide on Scroll Down */
+.header.hidden {
+    transform: translateY(-100%);
+}
+
+/* Header Show on Scroll Up */
+.header.visible {
+    transform: translateY(0);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+}
+
+.navbar {
+    display: flex;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* ========================================
+   LOGO AREA
+======================================== */
+.logo-area {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.logo-area:hover {
+    transform: scale(1.05);
+}
+
+.logo-circle {
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--primary-green), var(--light-green));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(143, 214, 176, 0.4);
+    font-size: 1rem;
+    font-weight: bold;
+    color: var(--white);
+    transition: all 0.3s ease;
+}
+
+.logo-circle:hover {
+    box-shadow: 0 6px 20px rgba(143, 214, 176, 0.6);
+    transform: rotate(5deg);
+}
+
+.logo-text h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--dark-green);
+    line-height: 1.2;
+    margin: 0;
+}
+
+.logo-subtitle {
+    font-size: 0.75rem;
+    color: var(--gray-text);
+    font-family: "Noto Sans JP", sans-serif;
+    margin: 0;
+}
+
+/* ========================================
+   NAVIGATION MENU
+======================================== */
+.nav-menu {
+    display: flex;
+    list-style: none;
+    position: absolute;              /* ← TAMBAH INI */
+    left: 51%;                       /* ← TAMBAH INI */
+    transform: translateX(-50%);     /* ← TAMBAH INI */
+}
+
+
+/* Efek Hover: Pop Up + Border */
+.nav-menu a:hover {
+    color: var(--dark-green);
+    background: rgba(193, 225, 208, 0.15);   /* Background hijau muda */
+    border: 1px solid var(--primary-green);  /* Border hijau tipis */
+    transform: translateY(-4px) scale(1.05); /* Pop up + zoom ringan */
+    box-shadow: 0 4px 12px rgba(143, 214, 176, 0.3);  /* Bayangan lembut */
+    outline: none;
+}
+
+.nav-link {
+    align-items: center;
+    gap: 0.5rem;
+    display: inline-flex;
+    text-decoration: none;
+    color: #66bb6a;              /* dark-green (hijau tua) */
+    background: transparent;      /* Belum ada background */      
+    font-weight: 600;
+    font-size: 1.05rem;
+    margin: 0.4rem;
+    padding: 0.6rem 0.75rem;          /* Ruang dalam link */
+    padding-right: 23px;
+    border-radius: 8px;              /* Sudut melengkung */
+    border: 1px solid transparent;   /* Border transparan dulu (biar gak geser pas hover) */
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);  /* Animasi smooth & fluid */
+    outline: none;
+}
+
+.nav-link i {
+    font-size: 1.1rem;
+}
+
+
+/* ========================================
+   RESPONSIVE DESIGN
+======================================== */
+@media (max-width: 1100px) {
+.header{
+    padding-top: 15px;
+    padding-bottom: 20px;
+}
+  .nav-link {
+    font-size: 0.9rem;      /* dari 1.05rem → lebih kecil */
+    padding: 0.45rem 0.9rem;/* sedikit kurangi padding */
+    margin: 0.2rem;         /* jarak antar item diperkecil */
+    align-items: center;
+    gap: 0.5rem;
+    display: inline-flex;
+    text-decoration: none;
+    color: #66bb6a;              /* dark-green (hijau tua) */
+    background: transparent;      /* Belum ada background */      
+    font-weight: 600;
+    
+    padding-right: 23px;
+    border-radius: 8px;              /* Sudut melengkung */
+    border: 1px solid transparent;   /* Border transparan dulu (biar gak geser pas hover) */
+    position: relative;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);  /* Animasi smooth & fluid */
+    outline: none;
+  }
+
+   /* KECILKAN LOGO */
+  .logo-circle {
+    width: 45px;      /* dari 55px */
+    height: 45px;
+    font-size: 0.9rem;
+  }
+
+  .logo-text h1 {
+    font-size: 1.2rem;   /* judul lebih kecil */
+  }
+
+  .logo-subtitle {
+    font-size: 0.7rem;
+  }
+}
+
+
+/* =======================================================
+   RESPONSIVE: MOBILE (≤ 768px)
+======================================================= */
+@media (max-width: 768px) {
+   
+    /* 1. RESET POSISI MENU (Jadi Panel Full Screen) */
+    .nav-menu {
+        /* Reset posisi desktop */
+        position: fixed;
+        left: 0;
+        top: 70px; /* Di bawah header */
+        transform: none; /* Hapus center desktop */
+        
+        /* Ukuran panel */
+        width: 100%;
+        height: calc(100vh - 70px);
+        
+        /* Tampilan */
+        background: #ffffff;
+        padding: 2rem 1.5rem;
+        flex-direction: column; /* Menu ke bawah */
+        align-items: flex-start; /* Rata kiri */
+        gap: 1rem;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        
+        /* LOGIC MUNCUL/HILANG (Pakai Transform Slide) */
+        transform: translateX(100%); /* Sembunyi di kanan */
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 2000;
+        visibility: hidden; /* Biar gak bisa diklik pas sembunyi */
+    }
+
+    /* 2. MENU SAAT AKTIF (Muncul) */
+    .nav-menu.active {
+        transform: translateX(0); /* Slide masuk */
+        visibility: visible;
+    }
+
+    /* 3. LINK MENU MOBILE (Lebih besar) */
+    .nav-link {
+        width: 100%;
+        font-size: 1.1rem;
+        padding: 1rem;
+        border-radius: 8px;
+        background: #f8f9fa; /* Abu sangat muda */
+        justify-content: flex-start; /* Icon & teks rata kiri */
+    }
+
+    .nav-link:hover, .nav-link.active {
+        background: var(--primary-green);
+        color: white;
+        transform: translateX(5px);
+    }
+
+    /* ===================================================
+       HAMBURGER ANIMATION (JADI X)
+    =================================================== */
+    .hamburger {
+        display: flex;
+        position: sticky;
+        left: 89%;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 6px;
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+        z-index: 2001; /* Di atas menu */
+        background: transparent;
+        border: none;
+    }
+
+    .hamburger span {
+        display: block;
+        width: 28px;
+        height: 3px;
+        background: var(--dark-green);
+        border-radius: 3px;
+        transition: all 0.3s ease;
+        transform-origin: center;
+    }
+
+    /* Garis Atas: Miring 45 derajat + Turun */
+    .hamburger.active span:nth-child(1) {
+        transform: translateY(9px) rotate(45deg);
+    }
+
+    /* Garis Tengah: Hilang/Geser */
+    .hamburger.active span:nth-child(2) {
+        opacity: 0;
+        transform: translateX(10px);
+    }
+
+    /* Garis Bawah: Miring -45 derajat + Naik */
+    .hamburger.active span:nth-child(3) {
+        transform: translateY(-9px) rotate(-45deg);
+    }
+}
+
+/* ========================================
+   RESPONSIVE: HP KECIL (≤ 480px)
+======================================== */
+@media (max-width: 480px) {
+  .logo-text h1 {
+    font-size: 1rem;
+  }
+
+  .logo-circle {
+    width: 35px;
+    height: 35px;
+    font-size: 0.75rem;
+  }
+
+  .nav-link {
+    font-size: 1rem;
+    padding: 0.8rem 1rem;
+  }
+}
+
+
+@media (max-width: 480px) {
+    .logo-text h1 {
+        font-size: 1rem;
+    }
+
+    .logo-subtitle {
+        font-size: 0.65rem;
+    }
+
+    .logo-circle {
+        width: 40px;
+        height: 40px;
+        font-size: 0.8rem;
+    }
+}
+
+
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
-body {
-  font-family: "Inter", "Noto Sans JP", sans-serif;
-  color: var(--dark-text);
-  line-height: 1.6;
-  background-color: #f9fdfa;
-}
-
-/* --- Header & Nav --- */
-header {
-  background: var(--pale-green);
-  padding: 1rem 2rem;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
-
-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-.logo-area { display: flex; align-items: center; gap: 0.75rem; }
-.logo-circle {
-  width: 40px; height: 40px; border-radius: 50%;
-  background: linear-gradient(135deg, var(--primary-green), var(--light-green));
-}
-.logo-text { font-weight: 700; color: var(--dark-green); font-size: 1.2rem; }
-
-.nav-menu { display: flex; list-style: none; gap: 2rem; }
-.nav-menu a { text-decoration: none; color: var(--dark-text); font-weight: 500; transition: 0.3s; }
-.nav-menu a:hover { color: var(--dark-green); }
-
-/* Hamburger Menu (Mobile) */
-.hamburger { display: none; cursor: pointer; flex-direction: column; gap: 5px; }
-.hamburger span { width: 25px; height: 3px; background: var(--dark-green); border-radius: 3px; }
-
-@media (max-width: 768px) {
-  .nav-menu {
-    position: fixed; top: 70px; left: -100%; width: 100%;
-    background: var(--pale-green); flex-direction: column;
-    padding: 2rem; transition: 0.4s;
-  }
-  .nav-menu.active { left: 0; }
-  .hamburger { display: flex; }
-}
 
 /* --- Hero Section --- */
 .hero-banner {

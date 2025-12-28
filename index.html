@@ -19,20 +19,54 @@
     <link rel="stylesheet" href="assets/css/carousel.css" />
   </head>
   <body>
-    <header>
-      <nav>
+    <!-- ========== HEADER / NAVIGATION ========== -->
+    <header id="mainHeader" class="header">
+      <nav class="navbar">
+        <!-- Logo Area -->
         <div class="logo-area">
-          <div class="logo-circle">NB</div>
-          <div class="logo-text">Bahasa Jepang</div>
+          <div class="logo-circle">
+            <span class="japanese-text">日本語部</span>
+          </div>
+          <div class="logo-text">
+            <h1>Nihongo Bu</h1>
+            <p class="logo-subtitle">日本語と文化</p>
+          </div>
         </div>
+
+        <!-- Navigation Menu -->
         <ul class="nav-menu" id="navMenu">
-          <li><a href="index.html">Home</a></li>
-          <li><a href="#">Profil</a></li>
-          <li><a href="bahasa.html">Bahasa</a></li>
-          <li><a href="#">Budaya</a></li>
+          <li>
+            <a href="#home" class="nav-link active">
+              <i class="fas fa-home"></i> Home
+            </a>
+          </li>
+          <li>
+            <a href="#profil" class="nav-link">
+              <i class="fas fa-users"></i> Profil
+            </a>
+          </li>
+          <li>
+            <a href="#kegiatan" class="nav-link">
+              <i class="fas fa-calendar-alt"></i> Kegiatan
+            </a>
+          </li>
+          <li>
+            <a href="#budaya" class="nav-link">
+              <i class="fas fa-torii-gate"></i> Budaya
+            </a>
+          </li>
+          <li>
+            <a href="#bahasa" class="nav-link">
+              <i class="fas fa-book-open"></i> Bahasa
+            </a>
+          </li>
         </ul>
+
+        <!-- Hamburger Menu (Mobile) -->
         <div class="hamburger" id="hamburger">
-          <span></span><span></span><span></span>
+          <span></span>
+          <span></span>
+          <span></span>
         </div>
       </nav>
     </header>
