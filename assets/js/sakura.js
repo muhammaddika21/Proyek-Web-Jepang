@@ -5,8 +5,8 @@ function createSakura() {
   sakura.className = "sakura";
   sakura.textContent = "🌸";
 
-  // posisi acak
-  sakura.style.left = Math.random() * 100 + "%";
+  // posisi dari kanan
+  sakura.style.left = 70 + Math.random() * 25 + "%";
 
   // ukuran pixel acak
   sakura.style.fontSize = 8 + Math.random() * 10 + "px";

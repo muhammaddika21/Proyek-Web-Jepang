@@ -373,6 +373,49 @@ body {
 /* --- Footer --- */
 footer { background: var(--dark-green); color: white; padding: 2rem; margin-top: 4rem; text-align: center; position: relative; overflow: hidden; }
 
+.sakura-tree-css {
+  position: absolute;
+  bottom: 0;
+  right: 1.5rem;   /* pindah ke kanan */
+  left: auto;
+  width: 14px;
+  height: 120px;
+  background: #5b3a29;
+  border-radius: 6px;
+  opacity: 0.22;
+  filter: saturate(0.8);
+  pointer-events: none;
+
+  transform-origin: bottom center;
+  animation: swayTree 6s ease-in-out infinite;
+  box-shadow:
+    -40px -20px 0 6px rgba(255, 182, 193, 0.35),
+     20px -40px 0 7px rgba(255, 182, 193, 0.35),
+     60px -20px 0 5px rgba(255, 182, 193, 0.35),
+    -20px -60px 0 6px rgba(255, 182, 193, 0.35);
+}
+.sakura-tree-css::before,
+.sakura-tree-css::after {
+  content: "";
+  position: absolute;
+  width: 80px;
+  height: 6px;
+  background: #5b3a29;
+  top: 30px;
+  border-radius: 6px;
+}
+
+.sakura-tree-css::before {
+  left: -60px;
+  transform: rotate(-25deg);
+}
+
+.sakura-tree-css::after {
+  right: -60px;
+  transform: rotate(25deg);
+}
+
+
 .footer-social {
   display: flex;
   gap: 1rem;
@@ -435,6 +478,18 @@ footer { background: var(--dark-green); color: white; padding: 2rem; margin-top:
   50% { transform: translateX(12px); }
   100% { transform: translateX(0); }
 }
+@keyframes swayTree {
+  0% {
+    transform: rotate(0deg);
+  }
+  50% {
+    transform: rotate(0.8deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
 
 
 
