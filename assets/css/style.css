@@ -371,7 +371,7 @@ body {
 .cta-button:hover { background: #57a85e; transform: translateY(-2px); }
 
 /* --- Footer --- */
-footer { background: var(--dark-green); color: white; padding: 2rem; margin-top: 4rem; text-align: center; }
+footer { background: var(--dark-green); color: white; padding: 2rem; margin-top: 4rem; text-align: center; position: relative; overflow: hidden; }
 
 .footer-social {
   display: flex;
@@ -405,6 +405,35 @@ footer { background: var(--dark-green); color: white; padding: 2rem; margin-top:
 /* Icon animation */
 .social-btn i {
   transition: 0.25s ease;
+}
+/* Wadah sakura */
+.sakura-container {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+/* Sakura item */
+.sakura {
+  position: absolute;
+  top: -10px;
+  font-size: 12px; /* pixel vibe */
+  opacity: 0.7;
+  animation: fall linear forwards, sway ease-in-out infinite;
+}
+
+/* Jatuh */
+@keyframes fall {
+  to {
+    transform: translateY(120%);
+  }
+}
+
+/* Goyang */
+@keyframes sway {
+  0% { transform: translateX(0); }
+  50% { transform: translateX(12px); }
+  100% { transform: translateX(0); }
 }
 
 
