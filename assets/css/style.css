@@ -102,7 +102,13 @@ body {
 
 .logo-circle:hover {
     box-shadow: 0 6px 20px rgba(143, 214, 176, 0.6);
-    transform: rotate(5deg);
+    transform: rotate(5deg) scale(1.05);
+}
+
+.logo-circle img {
+    width: 70%;
+    height: 70%;
+    object-fit: contain;
 }
 
 .logo-text h1 {
