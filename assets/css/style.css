@@ -371,51 +371,39 @@ body {
 .cta-button:hover { background: #57a85e; transform: translateY(-2px); }
 
 /* --- Footer --- */
-footer { background: var(--dark-green); color: white; padding: 2rem; margin-top: 4rem; text-align: center; position: relative; overflow: hidden; }
+footer { background: var(--dark-green); 
+    color: white; 
+    padding: 2rem; 
+    margin-top: 4rem; 
+    text-align: center; 
+    position: relative; 
+    overflow: hidden;
+    --spawn-speed: 7s; 
+}
 
+/* Sakura pixel GIF */
 .sakura-tree-css {
   position: absolute;
   bottom: 0;
-  right: 1.5rem;   /* pindah ke kanan */
-  left: auto;
-  width: 14px;
-  height: 120px;
-  background: #5b3a29;
-  border-radius: 6px;
-  opacity: 0.22;
-  filter: saturate(0.8);
+  right: 1.5rem;
+
+  width: 320px;
+  height: 200px;
+
+  background-image: url("../assets/img/sakura-pixel.gif");
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: bottom right;
+
+  image-rendering: pixelated;
   pointer-events: none;
-
-  transform-origin: bottom center;
-  animation: swayTree 6s ease-in-out infinite;
-  box-shadow:
-    -40px -20px 0 6px rgba(255, 182, 193, 0.35),
-     20px -40px 0 7px rgba(255, 182, 193, 0.35),
-     60px -20px 0 5px rgba(255, 182, 193, 0.35),
-    -20px -60px 0 6px rgba(255, 182, 193, 0.35);
+  opacity: 0.95;
+  transition: transform 0.6s ease;
 }
-.sakura-tree-css::before,
-.sakura-tree-css::after {
-  content: "";
-  position: absolute;
-  width: 80px;
-  height: 6px;
-  background: #5b3a29;
-  top: 30px;
-  border-radius: 6px;
+footer:hover .sakura-tree-css {
+  transform: translateY(-4px);
+  --spawn-speed: 4s;
 }
-
-.sakura-tree-css::before {
-  left: -60px;
-  transform: rotate(-25deg);
-}
-
-.sakura-tree-css::after {
-  right: -60px;
-  transform: rotate(25deg);
-}
-
-
 .footer-social {
   display: flex;
   gap: 1rem;
@@ -434,7 +422,7 @@ footer { background: var(--dark-green); color: white; padding: 2rem; margin-top:
   font-size: 1.4rem;
   color: white;
 
-  transition: 0.28s ease;
+  transition: 0.28s ease-out;
 }
 
 /* Hover effect */
@@ -456,39 +444,31 @@ footer { background: var(--dark-green); color: white; padding: 2rem; margin-top:
   pointer-events: none;
 }
 
-/* Sakura item */
+/* Kelopak pixel */
 .sakura {
   position: absolute;
   top: -10px;
-  font-size: 12px; /* pixel vibe */
-  opacity: 0.7;
-  animation: fall linear forwards, sway ease-in-out infinite;
+  right: calc(1.5rem + var(--offset));  
+  font-size: 12px;
+  opacity: 1;
+  color: #f2a3b3;
+  font-family: monospace;
+  animation: sakuraFall var(--spawn-speed) steps(24) forwards;
+  animation-delay: var(--delay);
 }
-
-/* Jatuh */
-@keyframes fall {
-  to {
-    transform: translateY(120%);
-  }
-}
-
-/* Goyang */
-@keyframes sway {
-  0% { transform: translateX(0); }
-  50% { transform: translateX(12px); }
-  100% { transform: translateX(0); }
-}
-@keyframes swayTree {
+/* Jatuh + goyang (digabung!) */
+@keyframes sakuraFall {
   0% {
-    transform: rotate(0deg);
+    transform: translate(0, 0);
   }
   50% {
-    transform: rotate(0.8deg);
+    transform: translate(10px, 60vh);
   }
   100% {
-    transform: rotate(0deg);
+    transform: translate(-6px, 120vh);
   }
 }
+
 
 
 
