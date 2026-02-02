@@ -1,0 +1,71 @@
+.social-btn {
+  width: 45px;
+  height: 45px;
+  background: rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 1.4rem;
+  color: white;
+
+  transition: 0.28s ease;
+}
+
+/* Hover effect */
+.social-btn:hover {
+  background: white;
+  color: #4da76d;
+  transform: translateY(-6px) scale(1.12);
+  box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.18);
+}
+
+/* Icon animation */
+.social-btn i {
+  transition: 0.25s ease;
+}
+
+
+/* warna gradasi footer */
+background: linear-gradient(270deg, rgba(247, 247, 239) 0%, rgba(127, 182, 140) 100%);
+
+<div class="footer-middle social-wrapper">
+          <p>Sosial Media :</p>
+          <div class="footer-social-icons">
+            <a href="#" class="social-btn"><i class="bi bi-instagram"></i></a>
+            <a href="#" class="social-btn"><i class="bi bi-facebook"></i></a>
+            <a href="#" class="social-btn"
+              ><i class="bi bi-chat-dots-fill"></i
+            ></a>
+          </div>
+        </div>
+
+        <footer class="main-footer">
+    
+    <div class="footer-top-row">
+        
+        <div class="footer-col footer-left">
+            <h3>Nihongo Bu</h3>
+            <p>Belajar Bahasa & Budaya Jepang</p>
+        </div>
+
+        <div class="footer-col footer-center">
+            <div class="social-icons">
+                <a href="#"><i class="bi bi-instagram"></i></a>
+                <a href="#"><i class="bi bi-facebook"></i></a>
+                <a href="#"><i class="bi bi-discord"></i></a>
+            </div>
+        </div>
+
+        <div class="footer-col footer-right">
+            <img src="assets/img/sakura-tree.png" alt="Sakura" class="sakura-anim">
+        </div>
+
+    </div>
+
+    <div class="footer-bottom-row">
+        <p>&copy; 2025 Nihongo Bu STIS. All Rights Reserved.</p>
+    </div>
+
+</footer>
