@@ -115,9 +115,9 @@ body {
 }
 
 .logo-circle img {
-    width: 70%;
-    height: 70%;
-    object-fit: contain;
+    width: 100%;         /* Menggunakan seluruh lebar lingkaran */
+    height: 100%;        /* Menggunakan seluruh tinggi lingkaran */
+    object-fit: cover;
 }
 
 .logo-text h1 {
