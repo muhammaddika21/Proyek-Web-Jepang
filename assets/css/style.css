@@ -71,6 +71,17 @@ body {
 }
 
 /* ========================================
+   GLOBAL & HEADER (Asumsi)
+======================================== */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Membuat logo di kiri, menu di tengah/kanan */
+    padding: 1rem 5%;
+    position: relative;
+}
+
+/* ========================================
    LOGO AREA
 ======================================== */
 .logo-area {
@@ -94,10 +105,8 @@ body {
     align-items: center;
     justify-content: center;
     box-shadow: 0 4px 12px rgba(143, 214, 176, 0.4);
-    font-size: 1rem;
-    font-weight: bold;
-    color: var(--white);
     transition: all 0.3s ease;
+    overflow: hidden; /* Agar gambar tidak keluar lingkaran */
 }
 
 .logo-circle:hover {
@@ -132,91 +141,58 @@ body {
 .nav-menu {
     display: flex;
     list-style: none;
-    position: absolute;              /* ← TAMBAH INI */
-    left: 51%;                       /* ← TAMBAH INI */
-    transform: translateX(-50%);     /* ← TAMBAH INI */
-}
-
-
-/* Efek Hover: Pop Up + Border */
-.nav-menu a:hover {
-    color: var(--dark-green);
-    background: rgba(193, 225, 208, 0.15);   /* Background hijau muda */
-    border: 1px solid var(--primary-green);  /* Border hijau tipis */
-    transform: translateY(-4px) scale(1.05); /* Pop up + zoom ringan */
-    box-shadow: 0 4px 12px rgba(143, 214, 176, 0.3);  /* Bayangan lembut */
-    outline: none;
+    gap: 0.5rem;
+    /* GANTI absolute dengan flex layout pada header agar lebih aman */
 }
 
 .nav-link {
+    display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    display: inline-flex;
     text-decoration: none;
-    color: #66bb6a;              /* dark-green (hijau tua) */
-    background: transparent;      /* Belum ada background */      
+    color: #66bb6a;
     font-weight: 600;
     font-size: 1.05rem;
-    margin: 0.4rem;
-    padding: 0.6rem 0.75rem;          /* Ruang dalam link */
-    padding-right: 23px;
-    border-radius: 8px;              /* Sudut melengkung */
-    border: 1px solid transparent;   /* Border transparan dulu (biar gak geser pas hover) */
-    position: relative;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);  /* Animasi smooth & fluid */
-    outline: none;
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.nav-link i {
-    font-size: 1.1rem;
+.nav-link:hover {
+    color: var(--dark-green);
+    background: rgba(193, 225, 208, 0.15);
+    border: 1px solid var(--primary-green);
+    transform: translateY(-4px) scale(1.05);
+    box-shadow: 0 4px 12px rgba(143, 214, 176, 0.3);
 }
-
 
 /* ========================================
-   RESPONSIVE DESIGN
+   RESPONSIVE DESIGN (Hanya tulis yang BERUBAH)
 ======================================== */
 @media (max-width: 1100px) {
-.header{
-    padding-top: 15px;
-    padding-bottom: 20px;
+    .header {
+        padding: 15px 20px;
+    }
+
+    .nav-link {
+        font-size: 0.9rem;
+        padding: 0.45rem 0.8rem;
+    }
+
+    .logo-circle {
+        width: 45px;
+        height: 45px;
+    }
+
+    .logo-text h1 {
+        font-size: 1.2rem;
+    }
+
+    .logo-subtitle {
+        font-size: 0.7rem;
+    }
 }
-  .nav-link {
-    font-size: 0.9rem;      /* dari 1.05rem → lebih kecil */
-    padding: 0.45rem 0.9rem;/* sedikit kurangi padding */
-    margin: 0.2rem;         /* jarak antar item diperkecil */
-    align-items: center;
-    gap: 0.5rem;
-    display: inline-flex;
-    text-decoration: none;
-    color: #66bb6a;              /* dark-green (hijau tua) */
-    background: transparent;      /* Belum ada background */      
-    font-weight: 600;
-    
-    padding-right: 23px;
-    border-radius: 8px;              /* Sudut melengkung */
-    border: 1px solid transparent;   /* Border transparan dulu (biar gak geser pas hover) */
-    position: relative;
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);  /* Animasi smooth & fluid */
-    outline: none;
-  }
-
-   /* KECILKAN LOGO */
-  .logo-circle {
-    width: 45px;      /* dari 55px */
-    height: 45px;
-    font-size: 0.9rem;
-  }
-
-  .logo-text h1 {
-    font-size: 1.2rem;   /* judul lebih kecil */
-  }
-
-  .logo-subtitle {
-    font-size: 0.7rem;
-  }
-}
-
-
 /* =======================================================
    RESPONSIVE: MOBILE (≤ 768px)
 ======================================================= */
