@@ -376,7 +376,8 @@ footer { background: var(--dark-green);
     padding: 2rem; 
     margin-top: 4rem; 
     text-align: center; 
-    position: relative; 
+    position: relative;
+    min-height: 260px; 
     overflow: hidden;
     --spawn-speed: 7s; 
 }
