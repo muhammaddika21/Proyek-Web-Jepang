@@ -370,7 +370,18 @@ body {
 }
 .cta-button:hover { background: #57a85e; transform: translateY(-2px); }
 
-/* --- Footer --- */
+/* --- Variables & Reset --- */
+:root {
+  --dark-green: #1a3c34;
+  --trunk-brown: #6b3e26;
+  --trunk-dark: #4d2c1b;
+  --sakura-pink: #f2a3b3;
+  --sakura-light: #f9c4d4;
+  --sakura-dark: #d88192;
+  --spawn-speed: 7s;
+  --pixel-size: 12px;
+}
+
 footer {
   background: var(--dark-green);
   color: white;
@@ -378,22 +389,22 @@ footer {
   margin-top: 4rem;
   text-align: center;
   position: relative;
-  min-height: 260px;
+  min-height: 300px; /* Sedikit lebih tinggi untuk ruang pohon */
   overflow: hidden;
-
-  --spawn-speed: 7s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
-/* Sakura pixel GIF */
+/* --- Pixel Sakura Tree --- */
 .pixel-sakura {
   position: absolute;
   bottom: 0;
-  right: 1.5rem;
-
-  width: 260px;
-  height: 260px;
-
-  transition: transform 0.25s ease;
+  right: 5%;
+  width: 180px;
+  height: 220px;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   pointer-events: auto;
   z-index: 2;
 }
@@ -401,110 +412,73 @@ footer {
 .pixel-sakura .trunk {
   position: absolute;
   bottom: 0;
-  right: 60px;
-
-  width: 16px;
-  height: 120px;
-
-  background: #6b3e26;
+  left: 50%;
+  width: 18px;
+  height: 140px;
+  background: var(--trunk-brown);
+  /* Efek tekstur kayu sederhana dengan linear-gradient */
+  background-image: linear-gradient(90deg, var(--trunk-dark) 20%, transparent 20%);
+  background-size: 4px 100%;
   image-rendering: pixelated;
+  transform: translateX(-50%) skewX(-2deg);
+}
 
-  transform: skewX(-3deg);
+/* Cabang samping menggunakan pseudo-element */
+.pixel-sakura .trunk::after {
+  content: "";
+  position: absolute;
+  top: 50px;
+  left: -12px;
+  width: 12px;
+  height: 35px;
+  background: var(--trunk-brown);
+  transform: rotate(-30deg);
+  box-shadow: -2px 0 var(--trunk-dark);
 }
 
 .pixel-sakura .canopy {
   position: absolute;
-  bottom: 90px;
-  right: 10px;
-
-  width: 12px;
-  height: 12px;
-
-  background: #f2a3b3;
-
-  box-shadow:
-    -12px 0 #f2a3b3,
-    0 -12px #f2a3b3,
-    12px 0 #f2a3b3,
-    -24px 12px #f9c4d4,
-    -12px 12px #f2a3b3,
-    0 12px #f9c4d4,
-    12px 12px #f2a3b3,
-    24px 12px #f2a3b3,
-    -12px 24px #f2a3b3,
-    0 24px #f9c4d4,
-    12px 24px #f2a3b3;
-
-  transform:
-    translateX(-28px)
-    rotate(-4deg);
-
-  transform-origin: bottom right;
+  top: 0;
+  left: 50%;
+  width: var(--pixel-size);
+  height: var(--pixel-size);
+  background: var(--sakura-pink);
+  /* Refactor box-shadow agar lebih rimbun & bervariasi warnanya */
+  box-shadow: 
+    /* Layer Tengah */
+    0 var(--pixel-size) var(--sakura-pink), 
+    calc(var(--pixel-size) * -1) var(--pixel-size) var(--sakura-dark),
+    var(--pixel-size) var(--pixel-size) var(--sakura-light),
+    /* Layer Atas */
+    0 0 var(--sakura-light),
+    /* Ekspansi ke samping */
+    calc(var(--pixel-size) * -2) calc(var(--pixel-size) * 2) var(--sakura-pink),
+    calc(var(--pixel-size) * -1) calc(var(--pixel-size) * 2) var(--sakura-pink),
+    0 calc(var(--pixel-size) * 2) var(--sakura-dark),
+    var(--pixel-size) calc(var(--pixel-size) * 2) var(--sakura-pink),
+    calc(var(--pixel-size) * 2) calc(var(--pixel-size) * 2) var(--sakura-light),
+    /* Layer Bawah */
+    calc(var(--pixel-size) * -3) calc(var(--pixel-size) * 3) var(--sakura-dark),
+    calc(var(--pixel-size) * -2) calc(var(--pixel-size) * 3) var(--sakura-pink),
+    calc(var(--pixel-size) * -1) calc(var(--pixel-size) * 3) var(--sakura-light),
+    0 calc(var(--pixel-size) * 3) var(--sakura-pink),
+    var(--pixel-size) calc(var(--pixel-size) * 3) var(--sakura-pink),
+    calc(var(--pixel-size) * 2) calc(var(--pixel-size) * 3) var(--sakura-dark),
+    calc(var(--pixel-size) * 3) calc(var(--pixel-size) * 3) var(--sakura-pink);
+  
+  transform: translateX(-50%) translateY(20px);
 }
 
-
-.pixel-sakura .canopy::before {
-  display: none;
-}
-
-
-.pixel-sakura .trunk::after {
-  content: "";
-  position: absolute;
-  top: 40px;
-  left: -10px;
-
-  width: 10px;
-  height: 30px;
-  background: #6b3e26;
-
-  transform: rotate(-25deg);
-}
-
+/* --- Animations & Interaction --- */
 footer:hover .pixel-sakura {
-  transform: translateY(-4px);
+  transform: scale(1.05);
 }
 
 .pixel-sakura:hover {
-  transform: translateY(-6px) rotate(-1deg);
+  transform: scale(1.05) rotate(-2deg);
 }
 
-.footer-social {
-  display: flex;
-  gap: 1rem;
-  margin-top: 1rem;
-  position: relative;
-  z-index: 5;
-}
-
-.social-btn {
-  width: 45px;
-  height: 45px;
-  background: rgba(255, 255, 255, 0.3);
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  font-size: 1.4rem;
-  color: white;
-
-  transition: 0.28s ease-out;
-}
-
-/* Hover effect */
-.social-btn:hover {
-  background: white;
-  color: #4da76d;
-  transform: translateY(-6px) scale(1.12);
-  box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.18);
-}
-
-/* Icon animation */
-.social-btn i {
-  transition: 0.25s ease;
-}
-/* Wadah sakura */
+/* --- Falling Petals --- */
 .sakura-container {
   position: absolute;
   inset: 0;
@@ -513,33 +487,56 @@ footer:hover .pixel-sakura {
 
 .sakura {
   position: absolute;
-
-  /* salah satu akan aktif */
-  top: var(--from-top, auto);
-  bottom: var(--from-bottom, auto);
-
-  right: calc(1.5rem + 120px + var(--offset, 0px));
-
-  font-family: monospace;
-  font-size: 12px;
-  color: #f2a3b3;
-
-  animation:
-    sakuraFall var(--spawn-speed) steps(24) forwards;
+  top: -20px;
+  /* Posisi spawn di sekitar pohon */
+  right: calc(5% + 60px + var(--offset, 0px));
+  color: var(--sakura-pink);
+  font-size: 14px;
+  user-select: none;
+  opacity: 0;
+  animation: sakuraFall var(--spawn-speed) steps(20) forwards;
   animation-delay: var(--delay, 0s);
 }
 
-/* Jatuh + goyang (digabung!) */
 @keyframes sakuraFall {
-  0%   { transform: translate(0, 0); }
-  40%  { transform: translate(14px, 50vh); }
-  70%  { transform: translate(-10px, 90vh); }
-  100% { transform: translate(-4px, 120vh); }
+  0% { 
+    transform: translate(0, 0) rotate(0deg); 
+    opacity: 0;
+  }
+  10% { opacity: 1; }
+  90% { opacity: 1; }
+  100% { 
+    /* Jatuh melengkung ke kiri bawah */
+    transform: translate(-100px, 350px) rotate(360deg); 
+    opacity: 0;
+  }
 }
 
+/* --- Social Buttons --- */
+.footer-social {
+  display: flex;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  z-index: 5;
+}
 
+.social-btn {
+  width: 48px;
+  height: 48px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(4px); /* Efek modern */
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
 
-
-
-
-
+.social-btn:hover {
+  background: white;
+  color: var(--dark-green);
+  transform: translateY(-8px);
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}

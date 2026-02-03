@@ -1,92 +1,110 @@
 // assets/js/sakura.js
 document.addEventListener("DOMContentLoaded", () => {
-  const container = document.querySelector(".sakura-container");
-  const footer = document.querySelector("footer");
-  const sakuraTree = document.querySelector(".pixel-sakura");
+  const elements = {
+    container: document.querySelector(".sakura-container"),
+    footer: document.querySelector("footer"),
+    tree: document.querySelector(".pixel-sakura")
+  };
 
-  if (!container || !footer || !sakuraTree) return;
+  // Guard clause jika elemen tidak ditemukan
+  if (!elements.container || !elements.footer || !elements.tree) return;
 
-  // Karakter pixel mini
-  const PETALS = ["*", "+", "·"];
-  let spawnRate = 700;
-  let interval;
+  const CONFIG = {
+    petals: ["*", "+", "·"],
+    normalRate: 700,
+    fastRate: 200,
+    normalSpeed: "7s",
+    fastSpeed: "5s"
+  };
 
-function spawnSakura() {
+  let spawnInterval = null;
+
+  /**
+   * Fungsi untuk membuat satu kelopak sakura
+   * @param {boolean} isBurst - Apakah ini bagian dari efek burst (dari kanopi saja)
+   */
+const spawnSakura = (isBurst = false) => {
   const petal = document.createElement("span");
-  petal.className = "sakura";
-  const size = Math.random() * 4 + 10;
-  petal.style.fontSize = `${size}px`;
-  petal.textContent =
-    PETALS[Math.floor(Math.random() * PETALS.length)];
+  
+  // 1. Tentukan sumber (70% dari kanopi pohon)
+  const isFromCanopy = isBurst || Math.random() < 0.7;
 
-  const offset =
-  Math.random() < 0.7
-    ? Math.random() * 60 - 30   // kanopi
-    : Math.random() * 120 - 60; // dari atas
+  // 2. Setting area kanan (fokus di koordinat kanan)
+  const config = isFromCanopy 
+    ? { 
+        // Sangat dekat dengan dahan pohon (kanan bawah)
+        offset: Math.random() * 100 - 50, // Rentang -50px sampai 50px dari posisi pohon
+        startAttr: "--from-bottom", 
+        startVal: "160px" 
+      }
+    : { 
+        // Dari langit, tapi hanya di pojok kanan atas
+        offset: Math.random() * 150 - 50, // Tidak melebar jauh ke kiri
+        startAttr: "--from-top",    
+        startVal: "-20px" 
+      };
+
+  // 3. Setup Konten
+  petal.className = "sakura";
+  petal.textContent = CONFIG.petals[Math.floor(Math.random() * CONFIG.petals.length)];
+  
+  const size = Math.random() * 4 + 10;
   const delay = Math.random() * 1.5;
 
-  petal.style.setProperty("--offset", `${offset}px`);
+  // 4. Terapkan Style
+  petal.style.fontSize = `${size}px`;
+  petal.style.setProperty("--offset", `${config.offset}px`);
   petal.style.setProperty("--delay", `${delay}s`);
+  petal.style.setProperty(config.startAttr, config.startVal);
 
-  if (Math.random() < 0.7) {
-    // Dari kanopi 🌸
-    petal.style.setProperty("--from-bottom", "150px");
-    petal.style.removeProperty("--from-top");
-  } else {
-    // Dari atas 🍃
-    petal.style.setProperty("--from-top", "-12px");
-    petal.style.removeProperty("--from-bottom");
-  }
+  // 5. Masukkan ke DOM & Cleanup
+  elements.container.appendChild(petal);
+  petal.addEventListener("animationend", () => petal.remove(), { once: true });
+};
 
-  container.appendChild(petal);
+  /**
+   * Mengatur kecepatan produksi sakura
+   */
+  const setSpawnRate = (rate) => {
+    if (spawnInterval) clearInterval(spawnInterval);
+    spawnInterval = setInterval(() => spawnSakura(), rate);
+  };
 
-  const fallDuration =
-    parseFloat(
-      getComputedStyle(footer).getPropertyValue("--spawn-speed")
-    ) * 1000;
+  /**
+   * Efek ledakan kelopak bunga
+   */
+  const burst = (count = 8) => {
+    for (let i = 0; i < count; i++) {
+      // Delay sedikit antar kelopak dalam burst agar lebih alami
+      setTimeout(() => spawnSakura(true), i * 50);
+    }
+  };
 
-  setTimeout(() => petal.remove(), fallDuration + delay * 1000);
-}
-function startSpawn(rate) {
-    clearInterval(interval);
-    interval = setInterval(spawnSakura, rate);
-  }
-  // Normal flow
-   startSpawn(spawnRate);
-function setFallSpeed(speed) {
-  footer.style.setProperty("--spawn-speed", speed);
-}
-function burst(count = 6) {
-  for (let i = 0; i < count; i++) {
-    spawnSakura();
-  }
-}
+  /**
+   * Handler untuk interaksi (Hover/Touch)
+   */
+  const handleInteractionStart = (e) => {
+    // Hindari trigger ganda pada mobile (touch + mouse)
+    if (e.type === 'touchstart') e.preventDefault(); 
+    
+    burst(10);
+    elements.footer.style.setProperty("--spawn-speed", CONFIG.fastSpeed);
+    setSpawnRate(CONFIG.fastRate);
+  };
 
- sakuraTree.addEventListener("mouseenter", () => {
-  burst(8);
-  setFallSpeed("5s");
-  startSpawn(220);
-});
+  const handleInteractionEnd = () => {
+    elements.footer.style.setProperty("--spawn-speed", CONFIG.normalSpeed);
+    setSpawnRate(CONFIG.normalRate);
+  };
 
-sakuraTree.addEventListener("mouseleave", () => {
-  setFallSpeed("7s");
-  startSpawn(700);
-});
+  // Event Listeners
+  elements.tree.addEventListener("mouseenter", handleInteractionStart);
+  elements.tree.addEventListener("mouseleave", handleInteractionEnd);
+  
+  // Mobile Support
+  elements.tree.addEventListener("touchstart", handleInteractionStart, { passive: false });
+  elements.tree.addEventListener("touchend", handleInteractionEnd);
 
-let touching = false;
-
-sakuraTree.addEventListener("touchstart", () => {
-  if (touching) return;
-  burst(6);
-  touching = true;
-  setFallSpeed("5s");
-  startSpawn(220);
-});
-
-sakuraTree.addEventListener("touchend", () => {
-  touching = false;
-  setFallSpeed("7s");
-  startSpawn(700);
-});
-
+  // Jalankan siklus awal
+  setSpawnRate(CONFIG.normalRate);
 });
