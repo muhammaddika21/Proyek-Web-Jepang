@@ -390,7 +390,7 @@ footer { background: var(--dark-green);
   width: 320px;
   height: 200px;
 
-  background-image: url("../assets/img/sakura-pixel.gif");
+  background-image: url("../img/sakura-pixel.gif");
   background-repeat: no-repeat;
   background-size: contain;
   background-position: bottom right;
