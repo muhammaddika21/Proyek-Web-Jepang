@@ -380,158 +380,123 @@ body {
   /* ... */
 }
 footer {
-  background: var(--dark-green);
+background: var(--dark-green);
   color: white;
-  padding: 2rem;
+  padding: 2rem 5%; /* 5% memberikan ruang agar tidak terlalu mepet pinggir layar */
   margin-top: 4rem;
-  text-align: center;
+  min-height: 200px;
   position: relative;
-  min-height: 300px; /* Sedikit lebih tinggi untuk ruang pohon */
   overflow: hidden;
+  
+  /* Reset Flexbox agar konten ke kiri */
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start; /* Dorong semua isi ke kiri */
+  justify-content: flex-end; /* Letakkan konten di bagian bawah footer */
 }
 
 /* --- Pixel Sakura Tree --- */
-/* --- CSS Baru untuk Pohon Sakura Pixel Art yang Lebih Bagus --- */
+/* --- Refactored Pixel Sakura (Scale 0.75) --- */
 .pixel-sakura {
   position: absolute;
   bottom: 0;
-  right: 5%; /* Sesuaikan posisi horizontal */
-  width: 200px; /* Area untuk pohon */
-  height: 280px;
-  z-index: 2;
+  right: 5%;
+  width: 100px;
+  height: 150px;
+  z-index: 10;
   pointer-events: auto;
-  /* Titik pusat transformasi di bagian bawah batang */
-  transform-origin: 50% 100%;
-  /* Animasi bergoyang pelan (opsional, hapus jika tidak ingin bergoyang) */
-  animation: gentleSway 6s ease-in-out infinite;
+  transform-origin: bottom center;
+  /* Skala dasar 0.75 disertakan dalam animasi goyang */
+  animation: gentleSway 5s ease-in-out infinite;
 }
 
 @keyframes gentleSway {
-  0%, 100% { transform: rotate(-1deg); }
-  50% { transform: rotate(1deg); }
+  0%, 100% { transform: rotate(-1deg) scale(0.75); }
+  50% { transform: rotate(1deg) scale(0.75); }
 }
 
+/* --- Batang Melengkung & Bertekstur --- */
 .pixel-sakura .trunk {
   position: absolute;
   bottom: 0;
   left: 50%;
-  transform: translateX(-50%);
-  /* Batang utama */
   width: 20px;
-  height: 160px;
+  height: 120px;
   background: var(--trunk-brown);
-  /* Tekstur kulit kayu dengan gradient pixel */
-  background-image: linear-gradient(to right, 
-    var(--trunk-dark) 25%, 
-    transparent 25%, transparent 50%, 
-    var(--trunk-dark) 50%, 
-    var(--trunk-dark) 75%, 
-    transparent 75%
+  /* Tekstur Shading Vertikal */
+  background-image: linear-gradient(90deg, 
+    rgba(0,0,0,0.3) 20%, 
+    transparent 20%, transparent 40%, 
+    rgba(0,0,0,0.1) 40%, rgba(0,0,0,0.1) 60%,
+    rgba(0,0,0,0.3) 80%
   );
-  background-size: 8px 100%; /* Ukuran pola pixel */
+  background-size: 5px 100%;
   image-rendering: pixelated;
-  border-radius: 2px; /* Sedikit melengkung di ujung */
+  /* Skew untuk efek melengkung luwes */
+  transform: translateX(-50%) skewX(4deg);
+  border-radius: 4px;
 }
 
-/* Dahan Kiri Bawah */
+/* Pangkal Batang/Akar */
 .pixel-sakura .trunk::before {
   content: "";
   position: absolute;
-  bottom: 40px;
-  left: -30px;
-  width: 40px;
-  height: 15px;
+  bottom: -5px;
+  left: -8px;
+  width: 36px;
+  height: 12px;
   background: var(--trunk-brown);
-  transform: rotate(-30deg);
-  transform-origin: right bottom;
-  /* Tekstur dahan */
-  background-image: linear-gradient(to bottom, var(--trunk-dark) 20%, transparent 20%);
-  background-size: 100% 6px;
-  border-radius: 2px;
+  box-shadow: inset 0 -4px rgba(0,0,0,0.3);
+  border-radius: 50% 50% 0 0;
 }
 
-/* Dahan Kanan Atas */
+/* Dahan Tambahan ke Atas */
 .pixel-sakura .trunk::after {
   content: "";
   position: absolute;
-  bottom: 90px;
-  right: -25px;
-  width: 35px;
-  height: 12px;
+  top: -35px;
+  left: 50%;
+  width: 16px;
+  height: 45px;
   background: var(--trunk-brown);
-  transform: rotate(20deg);
-  transform-origin: left bottom;
-  /* Tekstur dahan */
-  background-image: linear-gradient(to top, var(--trunk-dark) 20%, transparent 20%);
-  background-size: 100% 6px;
-  border-radius: 2px;
+  transform: translateX(-50%) rotate(-12deg);
+  background-image: inherit;
+  border-radius: 4px;
 }
 
-/* KANOPI BUNGA PIXEL ART YANG DETAIL */
+/* --- Kanopi Bunga Rimbun (Mirip Referensi) --- */
 .pixel-sakura .canopy {
   position: absolute;
-  top: 0;
+  top: 35px;
   left: 50%;
-  /* Ukuran dasar 1 pixel */
   width: 10px;
   height: 10px;
-  background: transparent; /* Transparan, bentuk dibuat oleh box-shadow */
+  background: transparent;
   transform: translateX(-50%);
-
-  /*
-   * MENGGAMBAR BUNGA DENGAN BOX-SHADOW
-   * Format: [posisi-x] [posisi-y] [warna]
-   * Gunakan variabel warna: --sakura-light, --sakura-pink, --sakura-dark
-   */
+  
+  /* Shading 3 Lapis: Light (Atas), Pink (Tengah), Dark (Bawah) */
   box-shadow:
-    /* --- Bagian Tengah (Rimbun) --- */
-    0 0 var(--sakura-pink),
-    10px 0 var(--sakura-pink), -10px 0 var(--sakura-pink),
-    0 10px var(--sakura-pink), 0 -10px var(--sakura-pink),
-    
-    /* --- Layer Cahaya (Highlight di Atas) --- */
-    0 -20px var(--sakura-light),
-    10px -10px var(--sakura-light), -10px -10px var(--sakura-light),
-    20px -20px var(--sakura-light), -20px -20px var(--sakura-light),
-    30px -10px var(--sakura-light), -30px -10px var(--sakura-light),
-    10px -30px var(--sakura-light), -10px -30px var(--sakura-light),
-    0 -40px var(--sakura-light), /* Puncak */
-
-    /* --- Layer Bayangan (Shadow di Bawah & Samping) --- */
-    10px 10px var(--sakura-dark), -10px 10px var(--sakura-dark),
-    20px 0 var(--sakura-dark), -20px 0 var(--sakura-dark),
-    20px 10px var(--sakura-dark), -20px 10px var(--sakura-dark),
-    30px 0px var(--sakura-dark), -30px 0px var(--sakura-dark),
-    10px 20px var(--sakura-dark), -10px 20px var(--sakura-dark),
-    0 20px var(--sakura-dark),
-
-    /* --- Bentuk Melebar ke Samping (Kiri & Kanan) --- */
-    40px -10px var(--sakura-pink), -40px -10px var(--sakura-pink),
-    40px 0 var(--sakura-dark), -40px 0 var(--sakura-dark),
-    50px -20px var(--sakura-light), -50px -20px var(--sakura-light),
-    50px -10px var(--sakura-pink), -50px -10px var(--sakura-pink),
-    
-    /* --- Bentuk Menjuntai ke Bawah (Kiri & Kanan) --- */
-    20px 30px var(--sakura-dark), -20px 30px var(--sakura-dark),
-    30px 20px var(--sakura-dark), -30px 20px var(--sakura-dark),
-    40px 10px var(--sakura-dark), -40px 10px var(--sakura-dark),
-    
-    /* --- Bunga-bunga Kecil Tambahan di Dahan --- */
-    /* Di dahan kiri bawah */
-    -45px 90px var(--sakura-pink), -55px 80px var(--sakura-light), -35px 95px var(--sakura-dark),
-    /* Di dahan kanan atas */
-    40px 50px var(--sakura-pink), 50px 40px var(--sakura-light), 35px 55px var(--sakura-dark);
+    /* Highlight Atas */
+    0 -30px var(--sakura-light), -10px -30px var(--sakura-light), 10px -30px var(--sakura-light),
+    -20px -20px var(--sakura-light), 20px -20px var(--sakura-light),
+    /* Body Tengah */
+    0 -20px var(--sakura-pink), -10px -20px var(--sakura-pink), 10px -20px var(--sakura-pink),
+    -30px -10px var(--sakura-pink), -20px -10px var(--sakura-pink), 0 -10px var(--sakura-pink), 20px -10px var(--sakura-pink), 30px -10px var(--sakura-pink),
+    -40px 0 var(--sakura-pink), 40px 0 var(--sakura-pink),
+    -50px -10px var(--sakura-pink), 50px -10px var(--sakura-pink),
+    /* Shadow Bawah */
+    -20px 0 var(--sakura-dark), -10px 0 var(--sakura-dark), 0 0 var(--sakura-dark), 10px 0 var(--sakura-dark), 20px 0 var(--sakura-dark),
+    -30px 10px var(--sakura-dark), -10px 10px var(--sakura-dark), 10px 10px var(--sakura-dark), 30px 10px var(--sakura-dark),
+    -10px 20px var(--sakura-dark), 0 20px var(--sakura-dark), 10px 20px var(--sakura-dark),
+    0 30px var(--sakura-dark);
 }
 
-/* --- Animations & Interaction --- */
+/* --- Hover Effect --- */
 footer:hover .pixel-sakura {
-  transform: scale(1.05);
+    /* Sedikit membesar ke arah skala 0.8 saat hover */
+    transform: scale(0.8);
+    transition: transform 0.3s ease;
 }
-
 .pixel-sakura:hover {
   transform: scale(1.05) rotate(-2deg);
 }
@@ -546,14 +511,15 @@ footer:hover .pixel-sakura {
 .sakura {
   position: absolute;
   top: -20px;
-  /* Posisi spawn di sekitar pohon */
-  right: calc(5% + 60px + var(--offset, 0px));
+  /* Disesuaikan agar jatuh di area pohon yang skalanya 0.75 */
+  right: calc(8% + 80px + var(--offset, 0px));
   color: var(--sakura-pink);
   font-size: 14px;
   user-select: none;
   opacity: 0;
   animation: sakuraFall var(--spawn-speed) steps(20) forwards;
   animation-delay: var(--delay, 0s);
+  z-index: 1;
 }
 
 @keyframes sakuraFall {

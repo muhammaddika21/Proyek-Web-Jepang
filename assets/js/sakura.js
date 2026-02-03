@@ -26,39 +26,44 @@ document.addEventListener("DOMContentLoaded", () => {
 const spawnSakura = (isBurst = false) => {
   const petal = document.createElement("span");
   
-  // 1. Tentukan sumber (70% dari kanopi pohon)
+  // 1. Probabilitas: 70% dari kanopi (atau 100% jika burst), 30% dari langit
   const isFromCanopy = isBurst || Math.random() < 0.7;
 
-  // 2. Setting area kanan (fokus di koordinat kanan)
+  // 2. Logika Koordinat:
+  // Nilai 'right' dasar di CSS adalah area pohon (8% + 80px).
+  // Agar muncul di pojok kanan (tepi layar), offset harus bernilai negatif kuat.
   const config = isFromCanopy 
     ? { 
-        // Sangat dekat dengan dahan pohon (kanan bawah)
-        offset: Math.random() * 100 - 50, // Rentang -50px sampai 50px dari posisi pohon
+        // Fokus di area dahan pohon
+        offset: Math.random() * 100 - 50, 
         startAttr: "--from-bottom", 
-        startVal: "160px" 
+        startVal: "180px" 
       }
     : { 
-        // Dari langit, tapi hanya di pojok kanan atas
-        offset: Math.random() * 150 - 50, // Tidak melebar jauh ke kiri
+        // Pojok kanan atas footer (Sky)
+        // Kita geser jauh ke kanan dengan nilai negatif (-150px sampai -50px)
+        offset: Math.random() * 100 - 160, 
         startAttr: "--from-top",    
         startVal: "-20px" 
       };
 
-  // 3. Setup Konten
+  // 3. Setup Konten & Karakter
   petal.className = "sakura";
   petal.textContent = CONFIG.petals[Math.floor(Math.random() * CONFIG.petals.length)];
   
   const size = Math.random() * 4 + 10;
   const delay = Math.random() * 1.5;
 
-  // 4. Terapkan Style
+  // 4. Injeksi Variabel CSS
   petal.style.fontSize = `${size}px`;
   petal.style.setProperty("--offset", `${config.offset}px`);
   petal.style.setProperty("--delay", `${delay}s`);
   petal.style.setProperty(config.startAttr, config.startVal);
 
-  // 5. Masukkan ke DOM & Cleanup
+  // 5. DOM Injection & Cleanup
   elements.container.appendChild(petal);
+  
+  // Menggunakan 'animationend' karena kita sudah mengubah 'infinite' jadi 'forwards' di CSS
   petal.addEventListener("animationend", () => petal.remove(), { once: true });
 };
 
