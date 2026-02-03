@@ -1,27 +1,92 @@
-const container = document.querySelector(".sakura-container");
+// assets/js/sakura.js
+document.addEventListener("DOMContentLoaded", () => {
+  const container = document.querySelector(".sakura-container");
+  const footer = document.querySelector("footer");
+  const sakuraTree = document.querySelector(".pixel-sakura");
 
-function createSakura() {
-  const sakura = document.createElement("span");
-  sakura.className = "sakura";
-  sakura.textContent = "🌸";
+  if (!container || !footer || !sakuraTree) return;
 
-  // posisi dari kanan
-  sakura.style.left = 70 + Math.random() * 25 + "%";
+  // Karakter pixel mini
+  const PETALS = ["*", "+", "·"];
+  let spawnRate = 700;
+  let interval;
 
-  // ukuran pixel acak
-  sakura.style.fontSize = 8 + Math.random() * 10 + "px";
+function spawnSakura() {
+  const petal = document.createElement("span");
+  petal.className = "sakura";
+  const size = Math.random() * 4 + 10;
+  petal.style.fontSize = `${size}px`;
+  petal.textContent =
+    PETALS[Math.floor(Math.random() * PETALS.length)];
 
-  // durasi jatuh
-  const duration = 6 + Math.random() * 6;
-  sakura.style.animationDuration = `${duration}s, 3s`;
+  const offset =
+  Math.random() < 0.7
+    ? Math.random() * 60 - 30   // kanopi
+    : Math.random() * 120 - 60; // dari atas
+  const delay = Math.random() * 1.5;
 
-  container.appendChild(sakura);
+  petal.style.setProperty("--offset", `${offset}px`);
+  petal.style.setProperty("--delay", `${delay}s`);
 
-  // hapus setelah jatuh
-  setTimeout(() => {
-    sakura.remove();
-  }, duration * 1000);
+  if (Math.random() < 0.7) {
+    // Dari kanopi 🌸
+    petal.style.setProperty("--from-bottom", "150px");
+    petal.style.removeProperty("--from-top");
+  } else {
+    // Dari atas 🍃
+    petal.style.setProperty("--from-top", "-12px");
+    petal.style.removeProperty("--from-bottom");
+  }
+
+  container.appendChild(petal);
+
+  const fallDuration =
+    parseFloat(
+      getComputedStyle(footer).getPropertyValue("--spawn-speed")
+    ) * 1000;
+
+  setTimeout(() => petal.remove(), fallDuration + delay * 1000);
+}
+function startSpawn(rate) {
+    clearInterval(interval);
+    interval = setInterval(spawnSakura, rate);
+  }
+  // Normal flow
+   startSpawn(spawnRate);
+function setFallSpeed(speed) {
+  footer.style.setProperty("--spawn-speed", speed);
+}
+function burst(count = 6) {
+  for (let i = 0; i < count; i++) {
+    spawnSakura();
+  }
 }
 
-// spawn tiap 700ms
-setInterval(createSakura, 700);
+ sakuraTree.addEventListener("mouseenter", () => {
+  burst(8);
+  setFallSpeed("5s");
+  startSpawn(220);
+});
+
+sakuraTree.addEventListener("mouseleave", () => {
+  setFallSpeed("7s");
+  startSpawn(700);
+});
+
+let touching = false;
+
+sakuraTree.addEventListener("touchstart", () => {
+  if (touching) return;
+  burst(6);
+  touching = true;
+  setFallSpeed("5s");
+  startSpawn(220);
+});
+
+sakuraTree.addEventListener("touchend", () => {
+  touching = false;
+  setFallSpeed("7s");
+  startSpawn(700);
+});
+
+});
