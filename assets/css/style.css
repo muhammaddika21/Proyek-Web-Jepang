@@ -370,18 +370,15 @@ body {
 }
 .cta-button:hover { background: #57a85e; transform: translateY(-2px); }
 
-/* --- Variables & Reset --- */
 :root {
-  --dark-green: #1a3c34;
+  /* ... variabel lain ... */
   --trunk-brown: #6b3e26;
   --trunk-dark: #4d2c1b;
   --sakura-pink: #f2a3b3;
   --sakura-light: #f9c4d4;
   --sakura-dark: #d88192;
-  --spawn-speed: 7s;
-  --pixel-size: 12px;
+  /* ... */
 }
-
 footer {
   background: var(--dark-green);
   color: white;
@@ -398,75 +395,136 @@ footer {
 }
 
 /* --- Pixel Sakura Tree --- */
+/* --- CSS Baru untuk Pohon Sakura Pixel Art yang Lebih Bagus --- */
 .pixel-sakura {
   position: absolute;
   bottom: 0;
-  right: 5%;
-  width: 180px;
-  height: 220px;
-  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  pointer-events: auto;
+  right: 5%; /* Sesuaikan posisi horizontal */
+  width: 200px; /* Area untuk pohon */
+  height: 280px;
   z-index: 2;
+  pointer-events: auto;
+  /* Titik pusat transformasi di bagian bawah batang */
+  transform-origin: 50% 100%;
+  /* Animasi bergoyang pelan (opsional, hapus jika tidak ingin bergoyang) */
+  animation: gentleSway 6s ease-in-out infinite;
+}
+
+@keyframes gentleSway {
+  0%, 100% { transform: rotate(-1deg); }
+  50% { transform: rotate(1deg); }
 }
 
 .pixel-sakura .trunk {
   position: absolute;
   bottom: 0;
   left: 50%;
-  width: 18px;
-  height: 140px;
+  transform: translateX(-50%);
+  /* Batang utama */
+  width: 20px;
+  height: 160px;
   background: var(--trunk-brown);
-  /* Efek tekstur kayu sederhana dengan linear-gradient */
-  background-image: linear-gradient(90deg, var(--trunk-dark) 20%, transparent 20%);
-  background-size: 4px 100%;
+  /* Tekstur kulit kayu dengan gradient pixel */
+  background-image: linear-gradient(to right, 
+    var(--trunk-dark) 25%, 
+    transparent 25%, transparent 50%, 
+    var(--trunk-dark) 50%, 
+    var(--trunk-dark) 75%, 
+    transparent 75%
+  );
+  background-size: 8px 100%; /* Ukuran pola pixel */
   image-rendering: pixelated;
-  transform: translateX(-50%) skewX(-2deg);
+  border-radius: 2px; /* Sedikit melengkung di ujung */
 }
 
-/* Cabang samping menggunakan pseudo-element */
+/* Dahan Kiri Bawah */
+.pixel-sakura .trunk::before {
+  content: "";
+  position: absolute;
+  bottom: 40px;
+  left: -30px;
+  width: 40px;
+  height: 15px;
+  background: var(--trunk-brown);
+  transform: rotate(-30deg);
+  transform-origin: right bottom;
+  /* Tekstur dahan */
+  background-image: linear-gradient(to bottom, var(--trunk-dark) 20%, transparent 20%);
+  background-size: 100% 6px;
+  border-radius: 2px;
+}
+
+/* Dahan Kanan Atas */
 .pixel-sakura .trunk::after {
   content: "";
   position: absolute;
-  top: 50px;
-  left: -12px;
-  width: 12px;
-  height: 35px;
+  bottom: 90px;
+  right: -25px;
+  width: 35px;
+  height: 12px;
   background: var(--trunk-brown);
-  transform: rotate(-30deg);
-  box-shadow: -2px 0 var(--trunk-dark);
+  transform: rotate(20deg);
+  transform-origin: left bottom;
+  /* Tekstur dahan */
+  background-image: linear-gradient(to top, var(--trunk-dark) 20%, transparent 20%);
+  background-size: 100% 6px;
+  border-radius: 2px;
 }
 
+/* KANOPI BUNGA PIXEL ART YANG DETAIL */
 .pixel-sakura .canopy {
   position: absolute;
   top: 0;
   left: 50%;
-  width: var(--pixel-size);
-  height: var(--pixel-size);
-  background: var(--sakura-pink);
-  /* Refactor box-shadow agar lebih rimbun & bervariasi warnanya */
-  box-shadow: 
-    /* Layer Tengah */
-    0 var(--pixel-size) var(--sakura-pink), 
-    calc(var(--pixel-size) * -1) var(--pixel-size) var(--sakura-dark),
-    var(--pixel-size) var(--pixel-size) var(--sakura-light),
-    /* Layer Atas */
-    0 0 var(--sakura-light),
-    /* Ekspansi ke samping */
-    calc(var(--pixel-size) * -2) calc(var(--pixel-size) * 2) var(--sakura-pink),
-    calc(var(--pixel-size) * -1) calc(var(--pixel-size) * 2) var(--sakura-pink),
-    0 calc(var(--pixel-size) * 2) var(--sakura-dark),
-    var(--pixel-size) calc(var(--pixel-size) * 2) var(--sakura-pink),
-    calc(var(--pixel-size) * 2) calc(var(--pixel-size) * 2) var(--sakura-light),
-    /* Layer Bawah */
-    calc(var(--pixel-size) * -3) calc(var(--pixel-size) * 3) var(--sakura-dark),
-    calc(var(--pixel-size) * -2) calc(var(--pixel-size) * 3) var(--sakura-pink),
-    calc(var(--pixel-size) * -1) calc(var(--pixel-size) * 3) var(--sakura-light),
-    0 calc(var(--pixel-size) * 3) var(--sakura-pink),
-    var(--pixel-size) calc(var(--pixel-size) * 3) var(--sakura-pink),
-    calc(var(--pixel-size) * 2) calc(var(--pixel-size) * 3) var(--sakura-dark),
-    calc(var(--pixel-size) * 3) calc(var(--pixel-size) * 3) var(--sakura-pink);
-  
-  transform: translateX(-50%) translateY(20px);
+  /* Ukuran dasar 1 pixel */
+  width: 10px;
+  height: 10px;
+  background: transparent; /* Transparan, bentuk dibuat oleh box-shadow */
+  transform: translateX(-50%);
+
+  /*
+   * MENGGAMBAR BUNGA DENGAN BOX-SHADOW
+   * Format: [posisi-x] [posisi-y] [warna]
+   * Gunakan variabel warna: --sakura-light, --sakura-pink, --sakura-dark
+   */
+  box-shadow:
+    /* --- Bagian Tengah (Rimbun) --- */
+    0 0 var(--sakura-pink),
+    10px 0 var(--sakura-pink), -10px 0 var(--sakura-pink),
+    0 10px var(--sakura-pink), 0 -10px var(--sakura-pink),
+    
+    /* --- Layer Cahaya (Highlight di Atas) --- */
+    0 -20px var(--sakura-light),
+    10px -10px var(--sakura-light), -10px -10px var(--sakura-light),
+    20px -20px var(--sakura-light), -20px -20px var(--sakura-light),
+    30px -10px var(--sakura-light), -30px -10px var(--sakura-light),
+    10px -30px var(--sakura-light), -10px -30px var(--sakura-light),
+    0 -40px var(--sakura-light), /* Puncak */
+
+    /* --- Layer Bayangan (Shadow di Bawah & Samping) --- */
+    10px 10px var(--sakura-dark), -10px 10px var(--sakura-dark),
+    20px 0 var(--sakura-dark), -20px 0 var(--sakura-dark),
+    20px 10px var(--sakura-dark), -20px 10px var(--sakura-dark),
+    30px 0px var(--sakura-dark), -30px 0px var(--sakura-dark),
+    10px 20px var(--sakura-dark), -10px 20px var(--sakura-dark),
+    0 20px var(--sakura-dark),
+
+    /* --- Bentuk Melebar ke Samping (Kiri & Kanan) --- */
+    40px -10px var(--sakura-pink), -40px -10px var(--sakura-pink),
+    40px 0 var(--sakura-dark), -40px 0 var(--sakura-dark),
+    50px -20px var(--sakura-light), -50px -20px var(--sakura-light),
+    50px -10px var(--sakura-pink), -50px -10px var(--sakura-pink),
+    
+    /* --- Bentuk Menjuntai ke Bawah (Kiri & Kanan) --- */
+    20px 30px var(--sakura-dark), -20px 30px var(--sakura-dark),
+    30px 20px var(--sakura-dark), -30px 20px var(--sakura-dark),
+    40px 10px var(--sakura-dark), -40px 10px var(--sakura-dark),
+    
+    /* --- Bunga-bunga Kecil Tambahan di Dahan --- */
+    /* Di dahan kiri bawah */
+    -45px 90px var(--sakura-pink), -55px 80px var(--sakura-light), -35px 95px var(--sakura-dark),
+    /* Di dahan kanan atas */
+    40px 50px var(--sakura-pink), 50px 40px var(--sakura-light), 35px 55px var(--sakura-dark);
 }
 
 /* --- Animations & Interaction --- */
