@@ -404,20 +404,22 @@ body {
     height: 140px; /* Tinggi baris footer yang ramping */
 }
 .pixel-sakura {
-   width: 10px;
-    height: 10px;
+    width: 300px;  /* Dikecilkan agar tidak memakan ruang klik */
+    height: 300px;
     background: transparent;
     position: absolute;
-    
-    /* Penempatan di pojok kanan bawah baris */
-    top: -20px; 
-    right: 165px;
-
-    transform: scale(0.4); /* Skala kecil agar pas di baris ramping */
-    transform-origin: bottom right;
-    animation: gentleSway 5s ease-in-out infinite;
+    top: -120px;     
+    right: -10px;   /* Sesuaikan posisi horizontal */
+    transform: scale(0.52); 
     z-index: 1;
-    box-shadow: 
+}
+.pixel-sakura::before {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    /* Pindahkan koordinat Y 80px s/d 320px ke sini */
+    box-shadow:
 250px 80px #f0b3dc,
 260px 80px #fbd0f0,
 270px 80px #f7b6e4,
@@ -947,7 +949,18 @@ body {
 310px 320px #6a2c50,
 320px 320px #6b2d52,
 330px 320px #6d2f54,
-340px 320px #623550,
+340px 320px #623550;
+transform-origin: 330px 320px;
+    animation: gentleSway 6s ease-in-out infinite;
+    /* Opsional: menambah kemiringan sedikit agar terlihat lebih reaktif */
+}
+.pixel-sakura::after {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    /* Pindahkan koordinat Y 330px s/d 420px ke sini */
+    box-shadow:
 270px 330px #6d3c54,
 280px 330px #6b3358,
 290px 330px #834d6f,
@@ -1089,20 +1102,20 @@ body {
 340px 420px #dbc0d3,
 350px 420px #dbc0d4,
 360px 420px #e9cbe2,
-370px 420px #d9c2d6;
+370px 420px #d9c2d6
 }
-
 @keyframes gentleSway {
-    0%, 100% { transform: rotate(-1.5deg) scale(0.4); }
-    50% { transform: rotate(1.5deg) scale(0.41); }
+    0%, 100% { transform: skewX(-2deg); }
+    50% { transform: skewX(2deg); }
 }
-
-.main-footer:hover .pixel-sakura {
-    transform: scale(0.8) rotate(-1deg);
-    transition: transform 0.3s ease;
+/* Keyframes khusus untuk goyangan cepat (sedikit lebih miring) */
+@keyframes fastSway {
+    0%, 100% { transform: skewX(-4deg); }
+    50% { transform: skewX(4deg); }
 }
-.pixel-sakura:hover {
-  transform: scale(1.05) rotate(-2deg);
+.pixel-sakura:hover::before {
+    /* Langsung ganti ke animasi cepat 1 detik tanpa mengubah scale elemen induk */
+    animation: fastSway 4s ease-in-out infinite;
 }
 
 /* --- Falling Petals --- */
@@ -1114,14 +1127,14 @@ body {
 
 .sakura {
   position: absolute;
-  top: -20px;
-  /* Disesuaikan agar jatuh di area pohon yang skalanya 0.75 */
-  right: calc(8% + 80px + var(--offset, 0px));
-  color: var(--sakura-pink);
+  /* Menggunakan koordinat dinamis dari JS */
+  top: var(--start-top);
+  right: var(--start-right);
   font-size: 14px;
   user-select: none;
   opacity: 0;
-  animation: sakuraFall var(--spawn-speed) steps(20) forwards;
+  /* Gunakan forwards agar tidak melompat balik di akhir */
+  animation: sakuraFall var(--spawn-speed, 7s) linear forwards;
   animation-delay: var(--delay, 0s);
   z-index: 1;
 }
@@ -1131,11 +1144,11 @@ body {
     transform: translate(0, 0) rotate(0deg); 
     opacity: 0;
   }
-  10% { opacity: 1; }
-  90% { opacity: 1; }
+  15% { opacity: 1; }
+  85% { opacity: 1; }
   100% { 
-    /* Jatuh melengkung ke kiri bawah */
-    transform: translate(-100px, 350px) rotate(360deg); 
+    /* Jatuh melayang ke arah kiri bawah (efek angin) */
+    transform: translate(-150px, 300px) rotate(450deg); 
     opacity: 0;
   }
 }

@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (!elements.container || !elements.footer || !elements.tree) return;
 
   const CONFIG = {
-    petals: ["*", "+", "·"],
+    petals: ["*", "·"],
     normalRate: 700,
     fastRate: 200,
     normalSpeed: "7s",
@@ -26,48 +26,49 @@ document.addEventListener("DOMContentLoaded", () => {
 const spawnSakura = (isBurst = false) => {
   const petal = document.createElement("span");
   
-  // 1. Probabilitas: 70% dari kanopi (atau 100% jika burst), 30% dari langit
-  const isFromCanopy = isBurst || Math.random() < 0.7;
+  // Probabilitas: 70% dari dahan pohon, 30% dari pojok kanan atas
+  const isFromTree = isBurst || Math.random() < 0.7;
 
-  // 2. Logika Koordinat:
-  // Nilai 'right' dasar di CSS adalah area pohon (8% + 80px).
-  // Agar muncul di pojok kanan (tepi layar), offset harus bernilai negatif kuat.
-  const config = isFromCanopy 
-    ? { 
-        // Fokus di area dahan pohon
-        offset: Math.random() * 100 - 50, 
-        startAttr: "--from-bottom", 
-        startVal: "180px" 
-      }
-    : { 
-        // Pojok kanan atas footer (Sky)
-        // Kita geser jauh ke kanan dengan nilai negatif (-150px sampai -50px)
-        offset: Math.random() * 100 - 160, 
-        startAttr: "--from-top",    
-        startVal: "-20px" 
-      };
+  let spawnTop, spawnRight;
 
-  // 3. Setup Konten & Karakter
+  if (isFromTree) {
+    // AREA POHON (Sekitar dahan)
+    spawnRight = Math.random() * 120 + 40; 
+    spawnTop = Math.random() * 60 + 10;    
+  } else {
+    // AREA POJOK KANAN (Langit)
+    spawnRight = Math.random() * 40 - 20;  
+    spawnTop = -20;                        
+  }
+
+  // --- PENYESUAIAN WARNA AGAR MIRIP POHON ---
+  const colors = [
+    "#fbd0f0", // Pink sangat muda
+    "#f7b6e4", // Pink standar pohon
+    "#ffb3ba", // Sakura pink (variabel)
+    "#fdbaef", // Pink cerah
+    "#f4b6e2", // Pink lembut
+    "#ffd4f7"  // Pink dahan atas
+  ];
+  const randomColor = colors[Math.floor(Math.random() * colors.length)];
+
   petal.className = "sakura";
   petal.textContent = CONFIG.petals[Math.floor(Math.random() * CONFIG.petals.length)];
   
-  const size = Math.random() * 4 + 10;
-  const delay = Math.random() * 1.5;
+  const size = Math.random() * 5 + 10;
+  const delay = Math.random() * 1;
 
-  // 4. Injeksi Variabel CSS
   petal.style.fontSize = `${size}px`;
-  petal.style.setProperty("--offset", `${config.offset}px`);
+  petal.style.color = randomColor; // Set warna acak ke elemen
+  petal.style.setProperty("--start-right", `${spawnRight}px`);
+  petal.style.setProperty("--start-top", `${spawnTop}px`);
   petal.style.setProperty("--delay", `${delay}s`);
-  petal.style.setProperty(config.startAttr, config.startVal);
 
-  // 5. DOM Injection & Cleanup
   elements.container.appendChild(petal);
   
-  // Menggunakan 'animationend' karena kita sudah mengubah 'infinite' jadi 'forwards' di CSS
   petal.addEventListener("animationend", () => petal.remove(), { once: true });
-};
-
-  /**
+}; 
+/**
    * Mengatur kecepatan produksi sakura
    */
   const setSpawnRate = (rate) => {
