@@ -934,19 +934,12 @@ body {
 350px 300px #633d55,
 360px 300px #613552,
 270px 310px #555555,
-280px 310px #684257,
-290px 310px #672b4e,
-300px 310px #713258,
-310px 310px #7b4667,
-320px 310px #6f2e54,
 330px 310px #6b2e52,
 340px 310px #603d54,
 350px 310px #613a54,
 270px 320px #6d5461,
 280px 320px #693153,
-290px 320px #713458,
-300px 320px #6c2c51,
-310px 320px #6a2c50,
+
 320px 320px #6b2d52,
 330px 320px #6d2f54,
 340px 320px #623550;
@@ -961,6 +954,14 @@ transform-origin: 330px 320px;
     height: 10px;
     /* Pindahkan koordinat Y 330px s/d 420px ke sini */
     box-shadow:
+280px 310px #684257,
+290px 310px #672b4e,
+300px 310px #713258,
+310px 310px #7b4667,
+320px 310px #6f2e54,
+290px 320px #713458,
+300px 320px #6c2c51,
+310px 320px #6a2c50,
 270px 330px #6d3c54,
 280px 330px #6b3358,
 290px 330px #834d6f,
