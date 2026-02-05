@@ -170,7 +170,7 @@ body {
 ======================================== */
 /* Container Utama Footer */
 .main-footer {
-    background-color: var(--primary-green); /* Hijau Hutan (Dominan) */
+    background-color: #448646; /* Hijau Hutan (Dominan) */
     color: var(--bg-cream); /* Teks warna Cream agar kontras */
     padding-top: 3rem;
     position: relative;
@@ -210,7 +210,8 @@ body {
 
 .footer-text-wrapper {
     display: flex;           /* Aktifkan mode baris */
-    flex-direction: column;  /* Ubah arah jadi MENUMPUK */
+    flex-direction: column;
+    color: #f8f7ef;  /* Ubah arah jadi MENUMPUK */
 }
 
 .footer-center {
@@ -617,7 +618,10 @@ body {
 
 /* --- Hero Section --- */
 .hero-banner {
-  background-image: url("../images/tokyotower.jpg");
+  background-image: url("../images/hero_kereta.png");
+  background-size: cover;      /* Memaksa gambar menutupi seluruh area tanpa gepeng */
+  background-position: center; /* Memastikan fokus gambar tetap di tengah */
+  background-repeat: no-repeat;/* Mencegah gambar berulang-ulang (tiling) */
   padding: 4rem 2rem;
   text-align: center;
   min-height: 100vh;

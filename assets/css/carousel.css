@@ -71,6 +71,10 @@
    GALLERY PLACEHOLDER (warna pastel + text center)
    ========================================================== */
 .gallery-placeholder {
+    background-image: url("../images/1.png");
+  background-size: cover;      /* Memaksa gambar menutupi seluruh area tanpa gepeng */
+  background-position: center; /* Memastikan fokus gambar tetap di tengah */
+  background-repeat: no-repeat;/* Mencegah gambar berulang-ulang (tiling) */
     width: 100%;
     height: 100%;
     border-radius: 20px;

@@ -1,16 +1,35 @@
 document.addEventListener("DOMContentLoaded", function () {
 
     // ======================================================
-    // 1. GALLERY DATA
+    // 1. GALLERY DATA (UPDATE INI)
     // ======================================================
     const galleryData = [
-        { label: 'Kelas Nihongo', color: '#A8E6CF' },
-        { label: 'Matsuri Festival', color: '#FFB3BA' },
-        { label: 'Hanami Event', color: '#FFDFD3' },
-        { label: 'Movie Night', color: '#C5E1A5' },
-        { label: 'Cultural Workshop', color: '#FFCCBC' },
-        { label: 'Group Photo', color: '#B2DFDB' }
+        { 
+            label: '', 
+            image: 'assets/images/kelas_onigiri.png' // Ganti dengan nama file asli Anda
+        },
+        { 
+            label: '', 
+            image: 'assets/images/kelas_bahasa.png' 
+        },
+        { 
+            label: '', 
+            image: 'assets/images/kelas_teh.png' 
+        },
+        { 
+            label: '', 
+            image: 'assets/images/comifuro_trip.png' 
+        },
+        { 
+            label: '', 
+            image: 'assets/images/workshop.png' 
+        },
+        { 
+            label: '', 
+            image: 'assets/images/foto-grup.png' 
+        }
     ];
+   
 
     let currentSlide = 0;
     let autoSlideInterval;
@@ -58,11 +77,18 @@ document.addEventListener("DOMContentLoaded", function () {
                 const galleryItem = document.createElement('div');
                 galleryItem.className = 'gallery-item';
 
+                // --- BAGIAN INI YANG DIUBAH ---
+                // Kita masukkan URL gambar langsung ke style HTML
+                // Kita tambah div 'overlay' agar tulisan terbaca jelas
                 galleryItem.innerHTML = `
-                    <div class="gallery-placeholder" style="background:${item.color}">
-                        ${item.label}
+                    <div class="gallery-placeholder" style="background-image: url('${item.image}');">
+                        <div class="gallery-overlay">
+                            <h3>${item.label}</h3>
+                        </div>
                     </div>
                 `;
+                // -----------------------------
+                
                 slide.appendChild(galleryItem);
             }
 
