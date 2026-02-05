@@ -49,7 +49,7 @@ body {
     z-index: 1000;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
     transition: transform 0.4s ease, box-shadow 0.3s ease;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(20px);
 }
 
 /* Header Hide on Scroll Down */
@@ -165,7 +165,136 @@ body {
     font-size: 1.1rem;
 }
 
+/* ========================================
+   FOOTER
+======================================== */
+/* Container Utama Footer */
+.main-footer {
+    background-color: var(--primary-green); /* Hijau Hutan (Dominan) */
+    color: var(--bg-cream); /* Teks warna Cream agar kontras */
+    padding-top: 3rem;
+    position: relative;
+    overflow: hidden; /* Mencegah animasi keluar layar */
+}
 
+/* --- BAGIAN 1: FLEXBOX MAGIC --- */
+.footer-top-row {
+    display: flex; /* MENGAKTIFKAN FLEXBOX */
+    justify-content: space-between; /* Mengatur jarak: Kiri - Tengah - Kanan */
+    align-items: center; /* Mengatur posisi vertikal biar sejajar di tengah */
+    max-width: 95%;
+    margin: 0 auto; /* Tengah layar */
+    padding: 0 2rem 2rem 2rem; /* Jarak dalam */
+}
+
+/* Trik agar posisi 'Tengah' BENAR-BENAR di tengah layar */
+.footer-col {
+    flex: 1; /* Artinya: Ketiga kolom punya kekuatan/lebar dasar yang sama */
+}
+
+/* Spesifik Kolom */
+.footer-left {
+    text-align: left; /* Teks rata kiri */
+   display: flex;           /* Aktifkan Flexbox: agar logo & teks berjejer ke SAMPING */
+    align-items: center;     /* Ratakan tengah secara vertikal */
+    gap: 15px;
+}
+
+.footer-logo {
+    max-width: 200px;             /* Lebar Paksa 200px */
+    min-width: 70px;
+    max-height: 200px;
+    min-height: 100px;            /* Tinggi Paksa 200px */
+    object-fit: contain;
+}
+
+.footer-text-wrapper {
+    display: flex;           /* Aktifkan mode baris */
+    flex-direction: column;  /* Ubah arah jadi MENUMPUK */
+}
+
+.footer-center {
+    text-align: center; /* Konten rata tengah */
+    display: flex;      /* Flexbox lagi di dalam kolom tengah */
+    flex-direction: column;
+    justify-content: center; /* Biar icon sosmed pas di tengah */
+    gap: 0.8rem;
+}
+
+.footer-right {
+    text-align: right; /* Konten rata kanan */
+    display: flex;
+    justify-content: flex-end; /* Memaksa pohon ke pojok kanan */
+    height: 150px; /* Tinggi area pohon */
+    align-items: flex-end; /* Pohon nempel di bawah baris */
+}
+
+/* Styling Icon Sosmed */
+/* Container agar tombol berjejer ke samping */
+.social-icons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+/* menghilangkan tulisan facebook, instagram, discord dll */
+.social-label {
+    display: none; 
+}
+/* Gaya Tombol Transparan (Punya Anda) */
+.social-btn {
+  width: 45px;
+  height: 45px;
+  background: rgba(255, 255, 255, 0.3); /* Transparan */
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.4rem;
+  color: white; /* Ikon Putih */
+  text-decoration: none; /* Hilangkan garis bawah */
+  transition: 0.28s ease;
+}
+
+/* Efek Hover */
+.social-btn:hover {
+  background: white; /* Jadi Putih Solid */
+  color: #4da76d;    /* Ikon jadi Hijau */
+  transform: translateY(-6px) scale(1.12); /* Naik & Membesar */
+  box-shadow: 0px 6px 18px rgba(0, 0, 0, 0.18);
+}
+
+/* Animasi Pohon */
+.sakura-anim {
+    height: 100%; width: auto;
+    transform-origin: bottom center;
+    animation: sway 4s ease-in-out infinite alternate;
+}
+@keyframes sway { from {transform: rotate(2deg);} to {transform: rotate(-2deg);} }
+
+
+/* --- BAGIAN 2: GARIS & COPYRIGHT --- */
+.footer-bottom-row {
+    border-top: 1px solid rgba(255,255,255, 0.3); /* Garis Pemisah (Breakline) */
+    text-align: center; /* Rata tengah biasa */
+    padding: 1.5rem 0;
+    background-color: rgba(0,0,0,0.1); /* Sedikit lebih gelap biar beda */
+    font-size: 0.9rem;
+    color: var(--bg-cream);
+}
+
+/* RESPONSIVE (PENTING: Biar rapi di HP) */
+@media (max-width: 768px) {
+    .footer-top-row {
+        flex-direction: column; /* Ganti baris jadi kolom (menumpuk ke bawah) */
+        text-align: center;
+        gap: 2rem; /* Jarak antar tumpukan */
+    }
+    
+    .footer-left, .footer-center, .footer-right {
+        text-align: center; /* Semua rata tengah di HP */
+        justify-content: center;
+    }
+}
 /* ========================================
    RESPONSIVE DESIGN
 ======================================== */
@@ -212,41 +341,52 @@ body {
 
 
 /* =======================================================
-   RESPONSIVE: MOBILE (≤ 768px)
+   RESPONSIVE: MOBILE (≤ 800px)
 ======================================================= */
-@media (max-width: 768px) {
+@media (max-width: 800px) {
    
+    
     /* 1. RESET POSISI MENU (Jadi Panel Full Screen) */
     .nav-menu {
-        /* Reset posisi desktop */
-        position: fixed;
-        left: 0;
-        top: 70px; /* Di bawah header */
-        transform: none; /* Hapus center desktop */
-        
-        /* Ukuran panel */
-        width: 100%;
-        height: calc(100vh - 70px);
-        
-        /* Tampilan */
-        background: #ffffff;
-        padding: 2rem 1.5rem;
-        flex-direction: column; /* Menu ke bawah */
-        align-items: flex-start; /* Rata kiri */
-        gap: 1rem;
-        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        
-        /* LOGIC MUNCUL/HILANG (Pakai Transform Slide) */
-        transform: translateX(100%); /* Sembunyi di kanan */
-        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        z-index: 2000;
-        visibility: hidden; /* Biar gak bisa diklik pas sembunyi */
+    width: 100%;
+    position: fixed;
+    top: 100%;
+    left: 50%;
+    right: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+
+    background: linear-gradient(
+    rgba(232, 245, 233, 0.8), /* pale green */
+    rgba(241, 248, 233, 0.8)  /* very pale green */
+  );
+  /* efek blur responsive */
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+
+    /* STATE TERTUTUP */
+    max-height: 0;
+    padding: 0;
+    opacity: 0;
+    pointer-events: none;
+    overflow: hidden;
+
+    transition:
+    max-height 0.4s ease,
+    opacity 0.4s ease,
+    padding 0.4s ease;
     }
 
     /* 2. MENU SAAT AKTIF (Muncul) */
     .nav-menu.active {
-        transform: translateX(0); /* Slide masuk */
-        visibility: visible;
+    width: 100%;
+    max-height: 100vh;
+    padding: 1.5rem 0;
+    opacity: 1;
+    pointer-events: auto;
     }
 
     /* 3. LINK MENU MOBILE (Lebih besar) */
@@ -255,23 +395,39 @@ body {
         font-size: 1.1rem;
         padding: 1rem;
         border-radius: 8px;
-        background: #f8f9fa; /* Abu sangat muda */
+        background: none; /* Abu sangat muda */
         justify-content: flex-start; /* Icon & teks rata kiri */
     }
 
     .nav-link:hover, .nav-link.active {
-        background: var(--primary-green);
-        color: white;
-        transform: translateX(5px);
+        background: none;
+        color: #66bb6a;
+
     }
 
+    .menu li {
+  list-style: none;
+    }
+
+    .menu li a {
+    color: #7bcf9b;
+    text-decoration: none;
+    font-size: 1.2rem;
+    padding: 0.75rem 1.5rem;
+    border-radius: 10px;
+    }
+
+    .menu li a:hover {
+    background: #7bcf9b;
+    color: #0f1a14;
+    }
     /* ===================================================
        HAMBURGER ANIMATION (JADI X)
     =================================================== */
     .hamburger {
         display: flex;
         position: sticky;
-        left: 89%;
+        left: 95%;
         flex-direction: column;
         justify-content: center;
         align-items: center;
@@ -309,6 +465,111 @@ body {
     .hamburger.active span:nth-child(3) {
         transform: translateY(-9px) rotate(-45deg);
     }
+    .footer-top-row {
+        flex-direction: column; /* Menumpuk ke bawah: Brand -> Sosmed -> Pohon */
+        gap: 2.5rem;            /* Memberi jarak napas antar tumpukan */
+        text-align: center;     /* Paksa semua teks jadi rata tengah */
+        padding-bottom: 0;      /* Hapus jarak bawah agar pohon bisa nempel dasar */
+    }
+
+    /* 2. RESET SEMUA KOLOM */
+    .footer-col {
+        width: 100%;            /* Lebar penuh */
+        justify-content: center; /* Pastikan isi kolom ada di tengah layar */
+        align-items: center;    /* Pastikan lurus vertikal */
+    }
+
+    /* 3. OPTIMALISASI BAGIAN BRAND (LOGO + TEKS) */
+    .footer-left {
+        /* Tetap biarkan logo & teks berjejer samping biar rapi */
+        flex-direction: row; 
+        
+        /* Tapi posisinya kita kunci di tengah layar */
+        display: flex;
+        justify-content: center; 
+    }
+    
+    .footer-text-wrapper {
+        text-align: left; /* Teks tetap rata kiri terhadap logo (biar enak dibaca) */
+    }
+
+    /* 4. OPTIMALISASI BAGIAN SOSMED (TENGAH) */
+    .footer-center {
+        /* Urutan Teks "Sosial Media" dan Icon tetap Atas-Bawah */
+        width: 100%;
+        
+       
+    }
+
+    .social-icons {
+        flex-direction: column;
+    }
+
+    .social-btn {
+        /* BENTUK KAPSUL */
+        width: 220px;          /* Lebar dipanjangkan */
+        height: 50px;          /* Tinggi secukupnya */
+        border-radius: 50px;   /* INI RAHASIANYA! Membuat ujung jadi bulat sempurna */
+        
+        /* TATA LETAK ISI (Ikon + Tulisan) */
+        display: flex;         
+        justify-content: flex-start; /* Isi rata kiri */
+        align-items: center;         /* Lurus tengah secara vertikal */
+        
+        /* JARAK */
+        padding-left: 20px;    /* Jarak dari pinggir kiri */
+        gap: 15px;             /* Jarak antara Ikon dan Tulisan */
+        
+        /* WARNA PEMBUNGKUS (Glassmorphism) */
+        background: rgba(255, 255, 255, 0.25); /* Transparan putih */
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .social-btn:hover .social-label,
+.social-btn:active .social-label,
+.social-btn:hover i,
+.social-btn:active i {
+    /* Paksa icon & teks jadi HIJAU agar kelihatan di background putih */
+    color: var(--primary-green) !important; 
+    transition: color 0.2s ease;
+}
+
+/* menghilangkan tulisan sosial media facebook, instagram dll pada gambar tsb */
+
+
+/* --- 2. EFEK KLIK YANG LEBIH LEMBUT (REVISI) --- */
+.social-btn:active {
+    /* JANGAN ubah warna background jadi hijau muda, tetap putih saja biar gak kedip */
+    background: white; 
+    
+    /* EFEK TEKAN: */
+    /* Saat hover dia naik (-6px), saat ditekan dia turun sedikit ke (-2px) */
+    /* Jangan pakai scale() agar tulisan tidak gepeng */
+    transform: translateY(-2px); 
+    
+    /* Bayangan menipis */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    
+    /* Lebar tetap sama dengan hover biar gak goyang */
+    width: 230px; 
+}
+
+    /* 3. MUNCULKAN TULISAN */
+    .social-label {
+        display: block;        /* Munculkan teksnya */
+        font-size: 1rem;       
+        font-weight: 600;
+        color: white;          /* Warna teks putih */
+    }
+
+    /* 5. OPTIMALISASI BAGIAN POHON SAKURA (KANAN/BAWAH) */
+    .footer-right {
+        height: 140px;          /* Kurangi tinggi pohon di HP biar gak makan tempat */
+        margin-top: 1rem;       /* Beri jarak dari sosmed */
+        justify-content: center; /* Pohon di tengah */
+        align-items: flex-end;  /* Nempel di garis bawah */
+        width: 100%;            /* Pastikan lebar container penuh */
+    }
 }
 
 /* ========================================
@@ -326,8 +587,9 @@ body {
   }
 
   .nav-link {
-    font-size: 1rem;
-    padding: 0.8rem 1rem;
+    background: transparent;
+  border-radius: 0;
+  font-size: 1.1rem;
   }
 }
 
@@ -355,10 +617,10 @@ body {
 
 /* --- Hero Section --- */
 .hero-banner {
-  background: linear-gradient(135deg, var(--pale-green) 0%, var(--white) 100%);
+  background-image: url("../images/tokyotower.jpg");
   padding: 4rem 2rem;
   text-align: center;
-  min-height: 400px;
+  min-height: 100vh;
   display: flex; align-items: center; justify-content: center;
 }
 .hero-content h1 { font-size: 2.5rem; color: var(--dark-green); margin-bottom: 0.5rem; }
@@ -1182,3 +1444,4 @@ transform-origin: 330px 320px;
   transform: translateY(-8px);
   box-shadow: 0 10px 20px rgba(0,0,0,0.2);
 }
+
