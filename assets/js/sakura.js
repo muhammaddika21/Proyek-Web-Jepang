@@ -11,8 +11,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const CONFIG = {
     petals: ["*", "·"],
-    normalRate: 700,
-    fastRate: 200,
+    normalRate: 100,
+    fastRate: 50,
     normalSpeed: "7s",
     fastSpeed: "5s"
   };
@@ -27,18 +27,64 @@ const spawnSakura = (isBurst = false) => {
   const petal = document.createElement("span");
   
   // Probabilitas: 70% dari dahan pohon, 30% dari pojok kanan atas
-  const isFromTree = isBurst || Math.random() < 0.7;
+  const isFromTree = isBurst || Math.random() < 1;
 
   let spawnTop, spawnRight;
 
   if (isFromTree) {
-    // AREA POHON (Sekitar dahan)
-    spawnRight = Math.random() * 120 + 40; 
-    spawnTop = Math.random() * 60 + 10;    
-  } else {
-    // AREA POJOK KANAN (Langit)
-    spawnRight = Math.random() * 40 - 20;  
-    spawnTop = -20;                        
+    // 1. Ambil Lebar Layar Saat Ini
+    const screenWidth = window.innerWidth;
+    // jika ukuran layar kurang dari 800px fungsi akan return dan menonaktifkan fungsi ini
+    if (screenWidth <= 800) return;
+    // Variabel untuk menyimpan angka pengali
+    let positionMultiplier; 
+
+    // --- PENGATURAN POSISI MANUAL (IF-ELSE) ---
+  // [MODE TABLET & LAPTOP KECIL]
+        // Ini adalah area "rawan menceng".
+        // Kalau Desktop (0.80) pas, tapi Laptop agak ke kiri/kanan, ubah angka ini.
+        // Saran: Coba angka di antara 0.75 sampai 0.85.
+        // Jika bunga terlalu KANAN -> Turunkan (misal 0.75)
+        // Jika bunga terlalu KIRI -> Naikkan (misal 0.78)
+    if (screenWidth <= 950) {
+        positionMultiplier = 0.85; 
+    }
+    else if (screenWidth <= 1100) {
+        positionMultiplier = 0.88; 
+    }
+    else if (screenWidth <= 1200) {
+        positionMultiplier = 0.84; 
+    }
+    else if (screenWidth <= 1420) {
+        positionMultiplier = 0.82; 
+    }
+    
+    else {
+        // [MODE DESKTOP / LAYAR LEBAR] 
+        // INI SWEET SPOT ANDA. JANGAN DIUBAH.
+        positionMultiplier = 0.78;
+    }
+
+    // ---------------------------------------------------
+    // RUMUS MATEMATIKA (JANGAN DIUBAH)
+    // ---------------------------------------------------
+
+    // 2. Hitung Titik Pusat Pohon
+    const treeCenter = screenWidth * positionMultiplier;
+
+    // 3. Variasi Sebaran (Agar natural)
+    // Angka 80 = Bunga menyebar sejauh 40px ke kiri & 40px ke kanan dari titik pusat
+    const variation = (Math.random() * 80) - 40; 
+
+    // 4. Eksekusi Posisi Horizontal (RIGHT)
+    // Rumus: Lebar Layar - (Titik Pusat + Variasi)
+    spawnRight = screenWidth - (treeCenter + variation);
+
+    // 5. Posisi Vertikal (Top)
+    if (screenWidth) {
+      
+    }
+    spawnTop = Math.random() * 50 + 10;
   }
 
   // --- PENYESUAIAN WARNA AGAR MIRIP POHON ---
